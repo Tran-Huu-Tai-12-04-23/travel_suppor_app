@@ -1,0 +1,5 @@
+{
+   "java.configuration.updateBuildConfiguration": "automatic",
+   "java.compile.nullAnalysis.mode": "disabled",
+   "avdmanager.sdkManager": "/home/geny_dev_linux/Android/Sdk/cmdline-tools/latest/bin/sdkmanager"
+}

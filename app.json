@@ -1,0 +1,57 @@
+{
+   "expo": {
+      "name": "travelsupporapp",
+      "slug": "travelsupportapp",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./assets/images/logo.png",
+      "scheme": "myapp",
+      "userInterfaceStyle": "automatic",
+      "splash": {
+         "image": "./assets/images/splash.png",
+         "resizeMode": "contain",
+         "backgroundColor": "#ffffff"
+      },
+      "updates": {
+         "fallbackToCacheTimeout": 0,
+         "checkAutomatically": "ON_ERROR_RECOVERY"
+      },
+      "assetBundlePatterns": ["**/*"],
+      "ios": {
+         "supportsTablet": true,
+         "bundleIdentifier": "y"
+      },
+      "android": {
+         "package": "com.travel.app",
+         "googleServicesFile": "./google-services.json",
+         "adaptiveIcon": {
+            "foregroundImage": "./assets/images/icon.png",
+            "backgroundColor": "#ffffff"
+         }
+      },
+      "plugins": [
+         "@react-native-firebase/app",
+         "@react-native-firebase/auth",
+         "@react-native-firebase/crashlytics",
+         "@react-native-google-signin/google-signin",
+         [
+            "expo-build-properties",
+            {
+               "ios": {
+                  "useFrameworks": "static"
+               }
+            }
+         ]
+      ],
+      "web": {
+         "favicon": "./assets/images/favicon.png"
+      },
+      "plugins": ["expo-font"],
+      "extra": {
+         "eas": {
+            "projectId": "ef5a1f79-a9aa-4ce2-ac31-3b34cafdd42b"
+         }
+      },
+      "owner": "tranhuutai"
+   }
+}
