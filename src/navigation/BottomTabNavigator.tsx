@@ -1,58 +1,80 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { ROUTE_KEY } from './route';
-import { config } from '@helper/helpers';
-import { Platform } from 'react-native';
-import HomeScreen from 'src/screens/BottomTab/Home';
-import { Image } from 'react-native';
-import { localImages } from 'assets/localImage';
-import LocationScreen from 'src/screens/BottomTab/Schedule';
-import Row from '@components/Row';
-import NotificationScreen from 'src/screens/BottomTab/Notification';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TouchableOpacity, Image, View } from 'react-native';
+import HomeDrawer from 'src/Drawer/HomeDrawer';
+import ScheduleScreen from 'src/screens/BottomTab/Schedule';
+import TextToSpeakScreen from 'src/screens/BottomTab/TextToSpeak';
 import PersonalScreen from 'src/screens/BottomTab/Personal';
-import { _SCREENS } from './_screen';
-import DetailScreen from './MainNavigator';
+import { ROUTE_KEY } from './route';
+import { localImages } from 'assets/localImage';
+import FindLocationButton from '@components/FindLocationButton';
+import { styleGlobal } from 'src/styles';
+import Animated, { FadeInDown } from 'react-native-reanimated';
+import Row from '@components/Row';
 
-const { Navigator, Screen } = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+
+const CustomTabBar = ({ state, descriptors, navigation }: any) => {
+   const focusedOptions = descriptors[state.routes[state.index].key].options;
+
+   if (focusedOptions.tabBarVisible === false) {
+      return null;
+   }
+
+   return (
+      <Row
+         style={[
+            styleGlobal.shadowForce,
+            { flexDirection: 'row', height: 60, backgroundColor: 'white', borderRadius: 20 },
+         ]}
+      >
+         {state.routes.map((route: any, index: number) => {
+            const { options } = descriptors[route.key];
+            const isFocused = state.index === index;
+
+            let icon;
+
+            if (route.name === ROUTE_KEY.MAIN_APP) {
+               icon = isFocused ? localImages().homeActiveIcon : localImages().homeIcon;
+            } else if (route.name === ROUTE_KEY.SCHEDULE) {
+               icon = isFocused ? localImages().scheduleActiveIcon : localImages().scheduleIcon;
+            } else if (route.name === ROUTE_KEY.TEXT_TO_SPEAK) {
+               icon = isFocused ? localImages().micActiveIcon : localImages().micIcon;
+            } else if (route.name === ROUTE_KEY.PERSONAL) {
+               icon = isFocused ? localImages().userActiveIcon : localImages().userIcon;
+            } else return <FindLocationButton key={route.name} />;
+
+            return (
+               <Animated.View
+                  style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+                  entering={FadeInDown.delay(200).springify()}
+                  key={route.name}
+               >
+                  <TouchableOpacity onPress={() => navigation.navigate(route.name)}>
+                     <Image source={icon} style={{ width: 24, height: 24 }} resizeMode="contain" />
+                  </TouchableOpacity>
+               </Animated.View>
+            );
+         })}
+         {/* Custom Button */}
+      </Row>
+   );
+};
 
 const BottomTabNavigator = () => {
    return (
-      <Navigator
+      <Tab.Navigator
          screenOptions={{
-            tabBarHideOnKeyboard: true,
-            tabBarStyle: {
-               position: 'absolute',
-               backgroundColor: 'white',
-               height: Platform.OS == 'android' ? 80 : 100,
-               borderTopRightRadius: 40,
-               borderTopLeftRadius: 40,
-            },
             headerShown: false,
-            ...config,
          }}
+         tabBar={(props) => <CustomTabBar {...props} />}
       >
-         {_SCREENS.map((screen) => (
-            <Screen
-               key={screen.route}
-               name={screen.route}
-               component={screen.component}
-               options={{
-                  tabBarShowLabel: false,
-                  tabBarIcon: ({ focused }) => (
-                     <Row center direction="column">
-                        <Image
-                           source={focused ? screen.iconActive : screen.icon}
-                           style={{ width: 24, height: 24 }}
-                           resizeMode="contain"
-                        />
-                     </Row>
-                  ),
-               }}
-            />
-         ))}
-
-         {/* <DetailScreen /> */}
-      </Navigator>
+         <Tab.Screen name={ROUTE_KEY.MAIN_APP} component={HomeDrawer} />
+         <Tab.Screen name={ROUTE_KEY.SCHEDULE} component={ScheduleScreen} />
+         <Tab.Screen name={ROUTE_KEY.SEARCH} component={ScheduleScreen} />
+         <Tab.Screen name={ROUTE_KEY.TEXT_TO_SPEAK} component={TextToSpeakScreen} />
+         <Tab.Screen name={ROUTE_KEY.PERSONAL} component={PersonalScreen} />
+      </Tab.Navigator>
    );
 };
 

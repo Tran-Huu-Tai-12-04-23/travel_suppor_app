@@ -9,32 +9,6 @@ import DetailFood from 'src/screens/Includes/DetailFood';
 import ScheduleScreen from 'src/screens/BottomTab/Schedule';
 import TextToSpeakScreen from 'src/screens/BottomTab/TextToSpeak';
 
-export const _SCREENS = [
-   {
-      route: ROUTE_KEY.MAIN_APP,
-      component: HomeDrawer,
-      iconActive: localImages().homeActiveIcon,
-      icon: localImages().homeIcon,
-   },
-   {
-      route: ROUTE_KEY.SCHEDULE,
-      component: ScheduleScreen,
-      iconActive: localImages().scheduleActiveIcon,
-      icon: localImages().scheduleIcon,
-   },
-   {
-      route: ROUTE_KEY.TEXT_TO_SPEAK,
-      component: TextToSpeakScreen,
-      iconActive: localImages().micActiveIcon,
-      icon: localImages().micIcon,
-   },
-   {
-      route: ROUTE_KEY.PERSONAL,
-      component: PersonalScreen,
-      iconActive: localImages().userActiveIcon,
-      icon: localImages().userIcon,
-   },
-];
 export const _DETAIL_SCREENS = [
    {
       route: ROUTE_KEY.DETAIL_LOCATION,

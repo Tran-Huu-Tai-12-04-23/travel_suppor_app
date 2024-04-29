@@ -23,6 +23,9 @@ export const ROUTE_KEY = createEnum({
 
    // =============
    DETAIL_FOOD: 'DETAIL_FOOD',
+
+   // ====
+   SEARCH: 'SEARCH',
 });
 
 function createEnum<T extends { [P in keyof T]: P }>(o: T) {

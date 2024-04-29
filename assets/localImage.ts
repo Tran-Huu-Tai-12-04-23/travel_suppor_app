@@ -8,6 +8,7 @@ export function localImages() {
       btnBack: require('./images/btnBack.png'),
       bg: require('./images/bg.png'),
       arrBackIcon: require('./images/arrBackIcon.png'),
+
       // ============= icon bottom tab
       micIcon: require('./bottomTabIcon/micIcon.png'),
       micActiveIcon: require('./bottomTabIcon/micActiveIcon.png'),
@@ -17,6 +18,8 @@ export function localImages() {
       scheduleIcon: require('./bottomTabIcon/scheduleIcon.png'),
       userIcon: require('./bottomTabIcon/userIcon.png'),
       userActiveIcon: require('./bottomTabIcon/userActiveIcon.png'),
+      searchIconActive: require('./bottomTabIcon/searchIconActive.png'),
+
       //
       filterIcon: require('./images/filterIcon.png'),
       searchIcon: require('./images/searchIcon.png'),

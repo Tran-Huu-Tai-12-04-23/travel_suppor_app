@@ -13,7 +13,6 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ModalProvider from '@context/ModalContext';
 import BottomSheetProvider from '@context/BottomSheetContext';
-import * as Updates from 'expo-updates';
 
 export default function App() {
    const isLoadingComplete = useLoadedAssets();

@@ -19,24 +19,10 @@ import { useAuth } from '@context/authContext';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { navigate } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
-import { GoogleSignin } from 'react-native-google-signin';
 import auth from '@react-native-firebase/auth';
 
 export default function LoginScreen() {
    const { login } = useAuth();
-   async function onGoogleButtonPress() {
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const { idToken } = await GoogleSignin.signIn();
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      return auth().signInWithCredential(googleCredential);
-   }
-   useEffect(() => {
-      GoogleSignin.configure({
-         scopes: ['email'],
-         webClientId: '292164408635-5es9m2v2q3lcaie0frj4nj3qg9tll04i.apps.googleusercontent.com',
-         offlineAccess: true,
-      });
-   }, []);
 
    return (
       <ImgBackgroundLayout>
@@ -105,7 +91,6 @@ export default function LoginScreen() {
                            minWidth={'45%'}
                            shadow
                            primary={false}
-                           onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
                            title={'Google'}
                            style={{ padding: 10 }}
                            mode="contained"
@@ -117,6 +102,9 @@ export default function LoginScreen() {
                                  resizeMode="contain"
                               />
                            }
+                           onPress={function (): void {
+                              throw new Error('Function not implemented.');
+                           }}
                         />
                      </Animated.View>
                      <Animated.View style={{ width: '45%' }} entering={FadeInDown.delay(400).springify()}>

@@ -14,7 +14,7 @@
 		96905EF65AED1B983A6B3ABC /* libPods-travelsupporapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-travelsupporapp.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		73BBCE0040F24A2D839CBE8D /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3864597DD7F4199A2CD81A7 /* noop-file.swift */; };
+		98C1408FA8FB4F55B89ACEC8 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A209EA19B431F8D519988 /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +31,8 @@
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-travelsupporapp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		C3864597DD7F4199A2CD81A7 /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "travelsupporapp/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		46F5F7A4B3D44A5F9557FB2A /* travelsupporapp-Bridging-Header.h */ = {isa = PBXFileReference; name = "travelsupporapp-Bridging-Header.h"; path = "travelsupporapp/travelsupporapp-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		336A209EA19B431F8D519988 /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "travelsupporapp/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		77DFCC7F3EC743A1A15B6D6C /* travelsupporapp-Bridging-Header.h */ = {isa = PBXFileReference; name = "travelsupporapp-Bridging-Header.h"; path = "travelsupporapp/travelsupporapp-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +57,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				C3864597DD7F4199A2CD81A7 /* noop-file.swift */,
-				46F5F7A4B3D44A5F9557FB2A /* travelsupporapp-Bridging-Header.h */,
+				336A209EA19B431F8D519988 /* noop-file.swift */,
+				77DFCC7F3EC743A1A15B6D6C /* travelsupporapp-Bridging-Header.h */,
 			);
 			name = travelsupporapp;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				ED1828AC704A46449B40FC82 /* travelsupporapp-Bridging-Header.h in Resources */,
+				AD317075D70545B3817711DD /* travelsupporapp-Bridging-Header.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +274,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				73BBCE0040F24A2D839CBE8D /* noop-file.swift in Sources */,
+				98C1408FA8FB4F55B89ACEC8 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
