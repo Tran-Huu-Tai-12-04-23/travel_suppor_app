@@ -1,6 +1,6 @@
 import { btnPrimary } from '@constants/Colors';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { TouchableOpacity, View } from 'react-native';
+import { PermissionsAndroid, Platform, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { useBottomSheet } from '@context/BottomSheetContext';
 import Row from './Row';
@@ -9,12 +9,13 @@ import { styleGlobal } from 'src/styles';
 import { FontAwesome } from '@expo/vector-icons';
 import { deviceWidth } from '@helper/utils';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 
-const _renderBottomChooseImg = () => {
+const _renderBottomChooseImg = (onPressTakePicture: () => void, onPressCamera: () => void) => {
    return (
       <Row rowGap={10} direction="column" full style={[styleGlobal.borderTop, { padding: 10, marginTop: 10 }]}>
          <ButtonCustom
-            onPress={function (): void {}}
+            onPress={() => {}}
             title={'Choose from library'}
             full
             minWidth={deviceWidth - 40}
@@ -23,19 +24,49 @@ const _renderBottomChooseImg = () => {
          <ButtonCustom
             minWidth={deviceWidth - 40}
             primary
-            onPress={function (): void {}}
+            onPress={async () => {}}
             title={'Take new picture'}
             startIcon={<FontAwesome name="camera" size={24} color="white" />}
          />
       </Row>
    );
 };
-function FindLocationButton() {
+function QuickSearchingButton() {
    const { openBottomSheet } = useBottomSheet();
+
+   const onPressTakePicture = async () => {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+      if (status !== ImagePicker.PermissionStatus.GRANTED) {
+         return;
+      }
+      const result = await ImagePicker.launchImageLibraryAsync();
+      if (result.canceled) {
+         return;
+      }
+      const asset = result.assets[0];
+      if (asset != null) {
+         console.log('RESULT : ==============> ' + asset.uri);
+      }
+   };
+   const onPressCamera = async () => {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== ImagePicker.PermissionStatus.GRANTED) {
+         return;
+      }
+      const result = await ImagePicker.launchCameraAsync();
+      if (result.canceled) {
+         return;
+      }
+      const asset = result.assets[0];
+      if (asset != null) {
+         console.log('RESULT : ==============> ' + asset.uri);
+      }
+   };
 
    const handleOpen = () => {
       openBottomSheet({
-         content: _renderBottomChooseImg(),
+         content: _renderBottomChooseImg(onPressTakePicture, onPressCamera),
          title: 'Search for img location!',
          snapPoints: [180],
       });
@@ -63,4 +94,4 @@ function FindLocationButton() {
    );
 }
 
-export default FindLocationButton;
+export default QuickSearchingButton;

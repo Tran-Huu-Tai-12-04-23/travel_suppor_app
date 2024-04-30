@@ -51,6 +51,14 @@
       <key>NSAllowsLocalNetworking</key>
       <true/>
     </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>Allow FnB Emp to access the camera to take pictures about proof of</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your microphone</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Allow FnB Emp to access the library to upload pictures about proof of</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Allow FnB Emp to access the library to upload pictures about proof of.</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>

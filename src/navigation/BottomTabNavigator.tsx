@@ -7,11 +7,11 @@ import TextToSpeakScreen from 'src/screens/BottomTab/TextToSpeak';
 import PersonalScreen from 'src/screens/BottomTab/Personal';
 import { ROUTE_KEY } from './route';
 import { localImages } from 'assets/localImage';
-import FindLocationButton from '@components/FindLocationButton';
 import { styleGlobal } from 'src/styles';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import Row from '@components/Row';
 import { config } from '@helper/helpers';
+import QuickSearchingButton from '@components/QuickSearchingButton';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +43,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
                icon = isFocused ? localImages().micActiveIcon : localImages().micIcon;
             } else if (route.name === ROUTE_KEY.PERSONAL) {
                icon = isFocused ? localImages().userActiveIcon : localImages().userIcon;
-            } else return <FindLocationButton key={route.name} />;
+            } else return <QuickSearchingButton key={route.name} />;
 
             return (
                <Animated.View

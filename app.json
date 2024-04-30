@@ -25,6 +25,7 @@
          "bundleIdentifier": "y"
       },
       "android": {
+         "permissions": ["android.permission.CAMERA", "android.permission.READ_EXTERNAL_STORAGE"],
          "config": {
             "googleMaps": {
                "apiKey": "AIzaSyACFEyucHfjhPUl88GCY1spvYuHi8lNEUA"
@@ -36,7 +37,32 @@
             "backgroundColor": "#ffffff"
          }
       },
-      "plugins": ["expo-font"],
+      "plugins": [
+         "expo-font",
+         "expo-build-properties",
+         [
+            "expo-camera",
+            {
+               "cameraPermission": "Allow FnB Emp to access the camera to take pictures about proof of"
+            }
+         ],
+         [
+            "expo-media-library",
+            {
+               "photosPermission": "Allow FnB Emp to access the library to upload pictures about proof of.",
+               "savePhotosPermission": "Allow FnB Emp to access the library to upload pictures about proof of",
+               "isAccessMediaLocationEnabled": true
+            }
+         ],
+         [
+            "expo-build-properties",
+            {
+               "android": {
+                  "kotlinVersion": "1.6.21"
+               }
+            }
+         ]
+      ],
       "web": {
          "favicon": "./assets/images/favicon.png"
       },
