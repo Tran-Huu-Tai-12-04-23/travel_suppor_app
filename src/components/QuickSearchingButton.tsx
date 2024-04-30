@@ -15,7 +15,7 @@ const _renderBottomChooseImg = (onPressTakePicture: () => void, onPressCamera: (
    return (
       <Row rowGap={10} direction="column" full style={[styleGlobal.borderTop, { padding: 10, marginTop: 10 }]}>
          <ButtonCustom
-            onPress={() => {}}
+            onPress={onPressTakePicture}
             title={'Choose from library'}
             full
             minWidth={deviceWidth - 40}
@@ -24,7 +24,7 @@ const _renderBottomChooseImg = (onPressTakePicture: () => void, onPressCamera: (
          <ButtonCustom
             minWidth={deviceWidth - 40}
             primary
-            onPress={async () => {}}
+            onPress={onPressCamera}
             title={'Take new picture'}
             startIcon={<FontAwesome name="camera" size={24} color="white" />}
          />
