@@ -17,10 +17,8 @@ import MainLayout from '@layout/MainLayout';
 import { deviceWidth } from '@helper/utils';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
-type PropsType = {
-   onShowBottomSheet: () => void;
-};
-function MyPager({ onShowBottomSheet }: PropsType) {
+type PropsType = {};
+function MyPager({}: PropsType) {
    const [currentPage, setCurrentPage] = useState(0);
    const slide = useRef<PagerView | null>(null);
 
@@ -115,9 +113,10 @@ function MyPager({ onShowBottomSheet }: PropsType) {
                entering={FadeInDown.delay(800).springify()}
                primary
                labelStyle={{ fontWeight: 'bold' }}
-               style={{ paddingHorizontal: 20, padding: 14, marginTop: 30 }}
+               minWidth={deviceWidth / 2}
+               style={{ paddingHorizontal: 30, padding: 24, marginTop: 30 }}
                title="GET STARTED"
-               onPress={onShowBottomSheet}
+               onPress={() => navigate(ROUTE_KEY.LOGIN)}
                endIcon={<FontAwesome name="arrow-right" size={16} color="white" />}
             />
 
@@ -147,51 +146,9 @@ function MyPager({ onShowBottomSheet }: PropsType) {
    );
 }
 export default function IntroScreen() {
-   const bottomSheetRef = useRef<BottomSheet>(null);
-   const handleClosePress = () => bottomSheetRef?.current?.close();
-   const handleOpenBottomSheet = () => bottomSheetRef?.current?.expand();
-   const snapPoints = useMemo(() => [250], []);
-
    return (
-      <MainLayout onTouchStart={handleClosePress}>
-         <MyPager onShowBottomSheet={handleOpenBottomSheet} />
-
-         <CustomBottomSheet
-            onClose={handleClosePress}
-            onOpen={handleOpenBottomSheet}
-            snapPoints={snapPoints}
-            ref={bottomSheetRef}
-            title={'Welcome to travel'}
-         >
-            <Row direction="column" full style={{ rowGap: 10, marginTop: 20 }}>
-               <ButtonCustom
-                  shadow={false}
-                  style={{ width: '100%', padding: 14 }}
-                  onPress={() => {}}
-                  title={'Đăng nhập với google'}
-                  startIcon={
-                     <Image source={localImages().googleIcon} style={{ width: 18, height: 18 }} resizeMode="contain" />
-                  }
-               />
-               <ButtonCustom
-                  shadow={false}
-                  style={{ width: '100%', padding: 14 }}
-                  onPress={() => {}}
-                  title={'Đăng nhập với github'}
-                  startIcon={
-                     <Image source={localImages().githubIcon} style={{ width: 24, height: 24 }} resizeMode="contain" />
-                  }
-               />
-               <ButtonCustom
-                  shadow={false}
-                  style={{ width: '100%', padding: 14 }}
-                  onPress={function (): void {
-                     navigate(ROUTE_KEY.LOGIN);
-                  }}
-                  title={'Đăng nhập với tài khoản  '}
-               />
-            </Row>
-         </CustomBottomSheet>
+      <MainLayout>
+         <MyPager />
       </MainLayout>
    );
 }

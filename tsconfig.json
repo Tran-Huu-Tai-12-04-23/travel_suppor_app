@@ -14,7 +14,8 @@
          "@constants/*": ["src/constants/*"],
          "@screen/*": ["src/screen/*"],
          "@layout/*": ["src/layout/*"],
-         "@context/*": ["src/contexts/*"]
+         "@context/*": ["src/contexts/*"],
+         "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
       }
    },
    "extends": "expo/tsconfig.base"

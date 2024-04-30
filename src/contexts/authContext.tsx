@@ -2,13 +2,14 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { IUser } from 'src/Models/user.model';
 import { clearUserData, getUserInfo, saveUserInfo } from './login.utils';
 import { useLoading } from './loadingGlobalContext';
-import TextDefault from '@components/TextDefault';
 import { ActivityIndicator } from 'react-native';
 import { btnPrimary } from '@constants/Colors';
+import { signOut } from 'firebase/auth';
+import { authFirebase } from 'src/config/firebaseWeb';
 
 interface AuthContextValue {
    user: IUser | null;
-   login: (userData: IUser) => void;
+   login: (userData: IUser, isLoginGoogle?: boolean) => void;
    logout: () => void;
 }
 
@@ -29,10 +30,13 @@ export const AuthProvider = ({ children }: PropsType) => {
    const [user, setUser] = useState<IUser | null>(null);
    const { startLoading, stopLoading } = useLoading();
    const [isLoading, setIsLoading] = useState(true);
+   const [isLoginWithGoogle, serIsLoginWithGoogle] = useState<boolean>(false);
 
-   const login = (userData: IUser) => {
+   const login = (userData: IUser, isLoginGoogle?: boolean) => {
       startLoading();
       setTimeout(() => {
+         isLoginGoogle && serIsLoginWithGoogle(isLoginGoogle);
+         isLoginGoogle && console.log('====================== login with google');
          setUser(userData);
          saveUserInfo(userData);
          stopLoading();
@@ -41,7 +45,10 @@ export const AuthProvider = ({ children }: PropsType) => {
 
    const logout = () => {
       startLoading();
-      setTimeout(() => {
+      setTimeout(async () => {
+         if (isLoginWithGoogle) {
+            await signOut(authFirebase);
+         }
          setUser(null);
          clearUserData();
          stopLoading();

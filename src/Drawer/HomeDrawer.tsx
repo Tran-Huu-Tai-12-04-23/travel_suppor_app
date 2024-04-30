@@ -9,7 +9,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import { deviceHeight } from '@helper/utils';
 import ButtonCustom from '@components/ButtonCustom';
 import { useAuth } from '@context/authContext';
-import { whiteColor } from '@constants/Colors';
+import { btnPrimary, whiteColor } from '@constants/Colors';
 import Separator from '@components/Separator';
 import { localImages } from 'assets/localImage';
 import { styleGlobal } from 'src/styles';
@@ -59,6 +59,7 @@ const HomeDrawer = () => {
                paddingTop: 0,
             },
             headerShown: false,
+            drawerActiveTintColor: btnPrimary,
          }}
          initialRouteName={ROUTE_KEY.HOME}
          drawerContent={_renderDrawerContent}
@@ -69,6 +70,7 @@ const HomeDrawer = () => {
                key={screen.route}
                component={screen.component}
                options={{
+                  drawerLabel: screen.name,
                   drawerIcon: ({ focused }) => (
                      <Image
                         source={focused ? screen.iconActive : screen.icon}

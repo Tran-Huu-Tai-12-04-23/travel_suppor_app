@@ -74,14 +74,7 @@ function SaveLocation() {
    return (
       <MainLayout style={{ background: whiteColor, padding: 0 }}>
          <CustomHeader title={''} />
-         <FlatList
-            contentContainerStyle={{ paddingBottom: 20 }}
-            data={locations}
-            renderItem={_renderLocationItem}
-            keyExtractor={(item) => item.key.toString()}
-         />
-
-         <Separator height={50} />
+         <FlatList data={locations} renderItem={_renderLocationItem} keyExtractor={(item) => item.key.toString()} />
       </MainLayout>
    );
 }

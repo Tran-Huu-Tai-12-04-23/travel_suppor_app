@@ -1,7 +1,7 @@
 {
    "expo": {
       "name": "travelsupporapp",
-      "slug": "travelsupportapp",
+      "slug": "travel-support-app",
       "version": "1.0.0",
       "orientation": "portrait",
       "icon": "./assets/images/logo.png",
@@ -18,39 +18,33 @@
       },
       "assetBundlePatterns": ["**/*"],
       "ios": {
+         "config": {
+            "googleMapsApiKey": "AIzaSyACFEyucHfjhPUl88GCY1spvYuHi8lNEUA"
+         },
          "supportsTablet": true,
          "bundleIdentifier": "y"
       },
       "android": {
-         "package": "com.travel.app",
-         "googleServicesFile": "./google-services.json",
+         "config": {
+            "googleMaps": {
+               "apiKey": "AIzaSyACFEyucHfjhPUl88GCY1spvYuHi8lNEUA"
+            }
+         },
+         "package": "com.travelsupport.app",
          "adaptiveIcon": {
             "foregroundImage": "./assets/images/icon.png",
             "backgroundColor": "#ffffff"
          }
       },
-      "plugins": [
-         "@react-native-firebase/app",
-         "@react-native-firebase/auth",
-         "@react-native-firebase/crashlytics",
-         [
-            "expo-build-properties",
-            {
-               "ios": {
-                  "useFrameworks": "static"
-               }
-            }
-         ]
-      ],
+      "plugins": ["expo-font"],
       "web": {
          "favicon": "./assets/images/favicon.png"
       },
-      "plugins": ["expo-font"],
       "extra": {
          "eas": {
-            "projectId": "ef5a1f79-a9aa-4ce2-ac31-3b34cafdd42b"
+            "projectId": "d8244eaa-9515-4e96-a93c-0530eedef759"
          }
       },
-      "owner": "tranhuutai"
+      "owner": "huutaidev"
    }
 }

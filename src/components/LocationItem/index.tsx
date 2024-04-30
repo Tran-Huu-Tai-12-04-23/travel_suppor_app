@@ -39,7 +39,7 @@ function LocationItem({ width = 200 }: PropsType) {
                   style={{ width: 50, padding: 4 }}
                   background={whiteColor}
                   onPress={() => {
-                     navigate(ROUTE_KEY.DIRECTION);
+                     // navigate(ROUTE_KEY.DIRECTION);
                   }}
                   title={''}
                />
@@ -67,11 +67,13 @@ function LocationItem({ width = 200 }: PropsType) {
       });
    };
    return (
-      <TouchableOpacity onLongPress={handleBottomSheet} onPress={() => navigate(ROUTE_KEY.DETAIL_LOCATION)}>
-         <Row
-            direction="column"
-            style={[styleGlobal.shadow, { minHeight: 200, width: width, padding: 4, borderRadius: 30 }]}
-         >
+      <TouchableOpacity
+         onLongPress={handleBottomSheet}
+         onPress={() => {
+            // navigate(ROUTE_KEY.DETAIL_LOCATION);
+         }}
+      >
+         <Row direction="column" style={[{ minHeight: 200, height: 250, width: width, padding: 4, borderRadius: 30 }]}>
             <Image
                style={[{ width: '100%', height: 200, borderRadius: 30 }]}
                source={{
@@ -85,13 +87,12 @@ function LocationItem({ width = 200 }: PropsType) {
                   styleGlobal.shadowForce,
                   {
                      padding: 10,
-                     margin: 10,
                      borderRadius: 20,
                      backgroundColor: borderColor,
                      alignContent: 'center',
                      alignItems: 'center',
-                     position: 'absolute',
                      bottom: 5,
+                     transform: [{ translateY: -50 }],
                   },
                ]}
             >

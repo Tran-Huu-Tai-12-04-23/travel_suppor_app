@@ -39,5 +39,7 @@ export function localImages() {
       saveLocationIcon: require('./images/saveLocationIcon.png'),
       addIcon: require('./images/addIcon.png'),
       trashIcon: require('./images/trashIcon.png'),
+      foodIcon: require('./images/foodIcon.png'),
+      locationIcon: require('./images/locationIcon.png'),
    };
 }

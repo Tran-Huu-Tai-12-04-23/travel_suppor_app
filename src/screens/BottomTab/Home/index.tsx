@@ -9,11 +9,13 @@ import TextDefault from '@components/TextDefault';
 import TextInputCustom from '@components/TextInputCustom';
 import { blackColor, btnPrimary, whiteColor } from '@constants/Colors';
 import { useAuth } from '@context/authContext';
+import { Ionicons } from '@expo/vector-icons';
 import MainLayout from '@layout/MainLayout';
-import { openDrawer } from '@navigation/NavigationService';
+import { navigate, openDrawer } from '@navigation/NavigationService';
+import { ROUTE_KEY } from '@navigation/route';
 import { localImages } from 'assets/localImage';
-import React from 'react';
-import { FlatList, ScrollView, View } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, ScrollView, RefreshControl, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { styleGlobal } from 'src/styles';
 
@@ -55,11 +57,21 @@ const districts = [
    },
 ];
 function HomeScreen() {
+   const [searchQuery, setSearchQuery] = useState('');
+   const [refreshing, setRefreshing] = React.useState(false);
+   const onRefresh = React.useCallback(() => {
+      setRefreshing(true);
+      setTimeout(() => {
+         setRefreshing(false);
+      }, 2000);
+   }, []);
+
    const _renderItem = ({ item }: { item: any }) => <LocationItem width={250} />;
    const _renderFoodItem = ({ item }: { item: any }) => <FoodItem width={250} />;
+
    return (
       <MainLayout>
-         <ScrollView>
+         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
             <Row between full colGap={20} style={{ alignItems: 'flex-start' }}>
                <Row start colGap={20}>
                   <TouchableOpacity onPress={openDrawer}>
@@ -93,14 +105,25 @@ function HomeScreen() {
             <Separator height={10} />
 
             <Row between wrap colGap={10}>
-               <TextInputCustom flex={8} placeholder="Where do you go?" />
+               <TextInputCustom onChangeText={(tx) => setSearchQuery(tx)} flex={8} placeholder="Where do you go?" />
                <ButtonCustom
                   minWidth={50}
                   radius={10}
                   primary
                   style={{ padding: 16 }}
-                  startIcon={<Icon link={localImages().filterIcon} style={{ height: 20, width: 20 }} />}
-                  onPress={() => {}}
+                  startIcon={
+                     <Ionicons
+                        name="search-sharp"
+                        size={22}
+                        color="white"
+                        style={{ marginTop: 'auto', marginBottom: 'auto' }}
+                     />
+                  }
+                  onPress={() => {
+                     if (!searchQuery) return;
+                     setSearchQuery('');
+                     navigate(ROUTE_KEY.SEARCH);
+                  }}
                   title={''}
                />
             </Row>

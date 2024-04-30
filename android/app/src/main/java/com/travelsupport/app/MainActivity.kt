@@ -1,4 +1,4 @@
-package com.travel.app
+package com.travelsupport.app
 
 import android.os.Build
 import android.os.Bundle

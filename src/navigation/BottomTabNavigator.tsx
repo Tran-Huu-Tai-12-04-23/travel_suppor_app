@@ -11,6 +11,7 @@ import FindLocationButton from '@components/FindLocationButton';
 import { styleGlobal } from 'src/styles';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import Row from '@components/Row';
+import { config } from '@helper/helpers';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,12 +67,14 @@ const BottomTabNavigator = () => {
       <Tab.Navigator
          screenOptions={{
             headerShown: false,
+            tabBarHideOnKeyboard: true,
+            ...config,
          }}
          tabBar={(props) => <CustomTabBar {...props} />}
       >
          <Tab.Screen name={ROUTE_KEY.MAIN_APP} component={HomeDrawer} />
          <Tab.Screen name={ROUTE_KEY.SCHEDULE} component={ScheduleScreen} />
-         <Tab.Screen name={ROUTE_KEY.SEARCH} component={ScheduleScreen} />
+         <Tab.Screen name={'any'} component={ScheduleScreen} />
          <Tab.Screen name={ROUTE_KEY.TEXT_TO_SPEAK} component={TextToSpeakScreen} />
          <Tab.Screen name={ROUTE_KEY.PERSONAL} component={PersonalScreen} />
       </Tab.Navigator>

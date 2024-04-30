@@ -1,7 +1,4 @@
-import * as Updates from 'expo-updates';
-import Icon from '@components/Icon';
-import { localImages } from 'assets/localImage';
-import { blackColor } from '@constants/Colors';
+import { btnPrimary } from '@constants/Colors';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { TouchableOpacity, View } from 'react-native';
 import React from 'react';
@@ -9,9 +6,9 @@ import { useBottomSheet } from '@context/BottomSheetContext';
 import Row from './Row';
 import ButtonCustom from './ButtonCustom';
 import { styleGlobal } from 'src/styles';
-import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { deviceWidth } from '@helper/utils';
+import { Ionicons } from '@expo/vector-icons';
 
 const _renderBottomChooseImg = () => {
    return (
@@ -53,14 +50,14 @@ function FindLocationButton() {
                alignContent: 'center',
                alignItems: 'center',
                alignSelf: 'center',
-               backgroundColor: blackColor,
+               backgroundColor: btnPrimary,
                borderRadius: 1000,
                // flex: 1,
                transform: [{ translateY: -25 }],
             }}
             onPress={handleOpen}
          >
-            <Icon link={localImages().searchIconActive} style={{ marginTop: 25 / 2 }} />
+            <Ionicons name="search-sharp" size={30} color="white" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
          </TouchableOpacity>
       </Animated.View>
    );

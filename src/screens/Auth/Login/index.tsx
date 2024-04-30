@@ -13,13 +13,11 @@ import ButtonCustom from '@components/ButtonCustom';
 import TextDefault from '@components/TextDefault';
 import { btnPrimary, primaryColor } from '@constants/Colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Image } from 'react-native';
-import { localImages } from 'assets/localImage';
 import { useAuth } from '@context/authContext';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { navigate } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
-import auth from '@react-native-firebase/auth';
+import BtnLoginWithGoogle from './BtnLoginWithGoogle';
 
 export default function LoginScreen() {
    const { login } = useAuth();
@@ -85,48 +83,7 @@ export default function LoginScreen() {
                   </Animated.View>
 
                   <Separator height={20} />
-                  <Row between colGap={30} full>
-                     <Animated.View style={{ width: '45%' }} entering={FadeInDown.delay(400).springify()}>
-                        <ButtonCustom
-                           minWidth={'45%'}
-                           shadow
-                           primary={false}
-                           title={'Google'}
-                           style={{ padding: 10 }}
-                           mode="contained"
-                           bold
-                           startIcon={
-                              <Image
-                                 source={localImages().googleIcon}
-                                 style={{ width: 24, height: 24 }}
-                                 resizeMode="contain"
-                              />
-                           }
-                           onPress={function (): void {
-                              throw new Error('Function not implemented.');
-                           }}
-                        />
-                     </Animated.View>
-                     <Animated.View style={{ width: '45%' }} entering={FadeInDown.delay(400).springify()}>
-                        <ButtonCustom
-                           minWidth={'45%'}
-                           shadow
-                           primary={false}
-                           onPress={() => {}}
-                           title={'Github'}
-                           style={{ padding: 10 }}
-                           mode="contained"
-                           bold
-                           startIcon={
-                              <Image
-                                 source={localImages().githubIcon}
-                                 style={{ width: 30, height: 30 }}
-                                 resizeMode="contain"
-                              />
-                           }
-                        />
-                     </Animated.View>
-                  </Row>
+                  <BtnLoginWithGoogle />
                </Row>
             </Container>
          </ScrollView>
