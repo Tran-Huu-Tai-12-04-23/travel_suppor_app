@@ -18,7 +18,7 @@ const envs = {
    },
 };
 
-const { EXPO_PUBLIC_APP_VARIANT, EXPO_PUBLIC_APP_NAME, EXPO_PUBLIC_BUNDLE_ID } =
+const { EXPO_PUBLIC_APP_VARIANT, EXPO_PUBLIC_APP_NAME, EXPO_PUBLIC_BUNDLE_ID, EXPO_PUBLIC_LINK_API } =
    envs[(process.env.NODE_ENV as keyof typeof envs) || 'production'];
 
 if (EXPO_PUBLIC_BUNDLE_ID == null) {
