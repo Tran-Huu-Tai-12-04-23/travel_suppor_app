@@ -5,7 +5,7 @@ export function isIphoneX() {
    return (
       Platform.OS === 'ios' &&
       !Platform.isPad &&
-      !Platform.isTVOS &&
+      !Platform.isTV &&
       (dim.height === 780 ||
          dim.width === 780 ||
          dim.height === 812 || //iphone X, 12 mini, iphone 11 pro,
@@ -24,14 +24,14 @@ const { width, height } = Dimensions.get('window');
 
 export const deviceWidth = width;
 export const deviceHeight = height;
-export function ifIphoneX(iphoneXStyle, regularStyle) {
+export function ifIphoneX(iphoneXStyle: number, regularStyle: number) {
    if (isIphoneX()) {
       return iphoneXStyle;
    }
    return regularStyle;
 }
 
-export function getStatusBarHeight(safe) {
+export function getStatusBarHeight(safe: any) {
    return Platform.select({
       ios: ifIphoneX(safe ? 44 : 35, 20),
       android: StatusBar.currentHeight,
@@ -43,7 +43,7 @@ export function getBottomSpace() {
    return isIphoneX() ? 34 : 0;
 }
 
-export const widthPercentageToDP = (widthPercent) => {
+export const widthPercentageToDP = (widthPercent: string) => {
    const elemWidth = typeof widthPercent === 'number' ? widthPercent : parseFloat(widthPercent);
    return PixelRatio.roundToNearestPixel((deviceWidth * elemWidth) / 100);
 };
@@ -58,7 +58,7 @@ export function getMonth() {
    return new Date();
 }
 
-export function isDateInCurrentMonth(dateString) {
+export function isDateInCurrentMonth(dateString: string | number | Date) {
    // Tạo đối tượng ngày từ chuỗi ngày
    const date = new Date(dateString);
 

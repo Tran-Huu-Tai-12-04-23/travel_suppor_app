@@ -7,4 +7,5 @@ export interface IUser {
    photoURL?: string | null;
    createAt?: Date | null;
    lastLoginAt?: Date | null;
+   password?: string;
 }

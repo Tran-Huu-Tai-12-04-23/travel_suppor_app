@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImgBackgroundLayout from '@layout/ImgBackgroundLayout';
 import CustomHeader from '@navigation/CustomHeader';
 import Container from '@components/Container';
@@ -18,10 +18,48 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { navigate } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
 import BtnLoginWithGoogle from './BtnLoginWithGoogle';
+import useLogin from '@hooks/api/auth/useLogin';
+import { useLoading } from '@context/loadingGlobalContext';
+import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 
 export default function LoginScreen() {
    const { login } = useAuth();
+   const { startLoading, stopLoading } = useLoading();
+   const { isLoading, data, onLogin } = useLogin();
+   const [input, setInput] = useState({
+      username: '',
+      password: '',
+   });
 
+   const handleChangeInput = (key: string, value: string) => {
+      setInput((prev) => {
+         return {
+            ...prev,
+            [key]: value,
+         };
+      });
+   };
+
+   const handleLogin = () => {
+      if (!input.username || !input.password) {
+         Toast.show({
+            type: ALERT_TYPE.WARNING,
+            title: 'Error',
+            textBody: 'Please provided full information!',
+         });
+         return;
+      }
+      startLoading();
+      setTimeout(() => {
+         stopLoading();
+         onLogin(input);
+      }, 1000);
+   };
+
+   useEffect(() => {
+      if (!data) return;
+      login(data);
+   }, [data]);
    return (
       <ImgBackgroundLayout>
          <ScrollView
@@ -38,10 +76,18 @@ export default function LoginScreen() {
                <Row style={{ marginTop: 'auto', marginBottom: 'auto' }} start direction="column" rowGap={20}>
                   <Title style={{ fontSize: 40 }}>Login</Title>
                   <Animated.View style={{ width: '100%' }} entering={FadeInDown.delay(100).springify()}>
-                     <TextInputCustom label="Username" />
+                     <TextInputCustom
+                        value={input.username}
+                        onChangeText={(text) => handleChangeInput('username', text)}
+                        label="Username"
+                     />
                   </Animated.View>
                   <Animated.View style={{ width: '100%' }} entering={FadeInDown.delay(200).springify()}>
-                     <PasswordInputCustom label="Password" />
+                     <PasswordInputCustom
+                        value={input.password}
+                        onChangeText={(text) => handleChangeInput('password', text)}
+                        label="Password"
+                     />
                   </Animated.View>
                   <Row center full>
                      <TouchableOpacity>
@@ -51,15 +97,14 @@ export default function LoginScreen() {
                   <Row full center>
                      <Animated.View entering={FadeInDown.delay(200).springify()}>
                         <ButtonCustom
+                           isLoading={isLoading}
                            bold
                            mode="contained"
                            full
                            style={{ padding: 14, width: 200 }}
                            primary
                            title="LOGIN"
-                           onPress={function (): void {
-                              login({ username: 'HUUTAI' });
-                           }}
+                           onPress={handleLogin}
                         />
                      </Animated.View>
                   </Row>

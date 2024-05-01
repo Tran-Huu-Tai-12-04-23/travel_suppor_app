@@ -143,7 +143,12 @@ function ButtonCustom(props: ButtonProps) {
                   },
                ]}
             >
-               {isLoading && <ActivityIndicator color={btnPrimary} />}
+               {isLoading && (
+                  <>
+                     <ActivityIndicator color={btnPrimary} />
+                     <TextDefault>Loading ....</TextDefault>
+                  </>
+               )}
                {!isLoading && startIcon}
                {!isLoading && title && (
                   <TextDefault

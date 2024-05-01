@@ -1,18 +1,58 @@
 {
-  "cli": {
-    "version": ">= 7.8.5"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {}
-  },
-  "submit": {
-    "production": {}
-  }
+   "cli": {
+      "version": ">= 7.8.5"
+   },
+   "build": {
+      "development": {
+         "developmentClient": true,
+         "distribution": "internal",
+         "ios": {
+            "cocoapods": "1.14.3",
+            "scheme": "travel_support_env_dev"
+         },
+         "android": {
+            "gradleCommand": ":app:assembleDevRelease",
+            "buildType": "apk"
+         },
+         "env": {
+            "EXPO_PUBLIC_APP_VARIANT": "dev",
+            "EXPO_PUBLIC_APP_NAME": "travelsupporappdev",
+            "EXPO_PUBLIC_BUNDLE_ID": "com.travelsupport.app",
+            "EXPO_PUBLIC_LINK_API": "http://192.168.1.15:3000/api"
+         }
+      },
+      "production": {
+         "channel": "production",
+         "ios": {
+            "cocoapods": "1.14.3",
+            "scheme": "travel_support_env_dev"
+         },
+         "android": {
+            "gradleCommand": ":app:assembleProductionRelease",
+            "buildType": "apk"
+         },
+         "env": {
+            "EXPO_PUBLIC_APP_VARIANT": "prod",
+            "EXPO_PUBLIC_APP_NAME": "travelsupporapp",
+            "EXPO_PUBLIC_BUNDLE_ID": "com.travelsupport.app",
+            "EXPO_PUBLIC_AUTH_API": "http://192.168.1.15:3000/api"
+         }
+      }
+   },
+   "submit": {
+      "dev": {
+         "ios": {
+            "appleId": "",
+            "ascAppId": "",
+            "appleTeamId": ""
+         }
+      },
+      "production": {
+         "ios": {
+            "appleId": "",
+            "ascAppId": "",
+            "appleTeamId": ""
+         }
+      }
+   }
 }

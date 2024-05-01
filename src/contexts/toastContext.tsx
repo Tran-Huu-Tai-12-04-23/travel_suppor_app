@@ -8,18 +8,18 @@ import { signOut } from 'firebase/auth';
 import { authFirebase } from 'src/config/firebaseWeb';
 import { ILoginResponse } from 'src/Models/loginResponse.dto';
 
-interface AuthContextValue {
+interface ToastContextValue {
    user: IUser | null;
    login: (userData: ILoginResponse, isLoginGoogle?: boolean) => void;
    logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+const AuthContext = createContext<ToastContextValue | undefined>(undefined);
 
-export const useAuth = () => {
+export const useToastContext = () => {
    const context = useContext(AuthContext);
    if (!context) {
-      throw new Error('useAuth must be used within an AuthProvider');
+      throw new Error('useToastContext must be used within an AuthProvider');
    }
    return context;
 };
