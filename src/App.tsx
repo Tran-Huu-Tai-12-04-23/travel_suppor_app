@@ -14,7 +14,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ModalProvider from '@context/ModalContext';
 import BottomSheetProvider from '@context/BottomSheetContext';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
+import * as Updates from 'expo-updates';
+import { UserLocationProvider } from '@context/userLocationContext';
 const queryClient = new QueryClient();
+
 export default function App() {
    const isLoadingComplete = useLoadedAssets();
 
@@ -29,17 +32,19 @@ export default function App() {
                      <LoadingProvider>
                         <BottomSheetProvider>
                            <AuthProvider>
-                              <ModalProvider>
-                                 <KeyboardAvoidingView
-                                    style={{ flex: 1 }}
-                                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                                 >
-                                    <SafeAreaProvider>
-                                       <Navigation />
-                                       <StatusBar />
-                                    </SafeAreaProvider>
-                                 </KeyboardAvoidingView>
-                              </ModalProvider>
+                              <UserLocationProvider>
+                                 <ModalProvider>
+                                    <KeyboardAvoidingView
+                                       style={{ flex: 1 }}
+                                       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                                    >
+                                       <SafeAreaProvider>
+                                          <Navigation />
+                                          <StatusBar />
+                                       </SafeAreaProvider>
+                                    </KeyboardAvoidingView>
+                                 </ModalProvider>
+                              </UserLocationProvider>
                            </AuthProvider>
                         </BottomSheetProvider>
                      </LoadingProvider>

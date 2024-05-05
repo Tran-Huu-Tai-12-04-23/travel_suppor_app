@@ -40,5 +40,22 @@ export function useLoadedAssets() {
       initAppUpdate();
    }, []);
 
+   React.useEffect(() => {
+      const update = async () => {
+         try {
+            const update = await Updates.checkForUpdateAsync();
+            if (update.isAvailable) {
+               await Updates.fetchUpdateAsync();
+               // ... thông báo cho người dùng về bản cập nhật ...
+               await Updates.reloadAsync();
+            }
+         } catch (e) {
+            console.log(e);
+         }
+      };
+
+      update();
+   }, []);
+
    return isLoadingComplete;
 }

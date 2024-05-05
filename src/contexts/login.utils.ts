@@ -26,7 +26,7 @@ export const saveToken = async (token: IToken) => {
 export const getToken = async () => {
    try {
       const token = await AsyncStorage.getItem('@token');
-      return token as unknown as IToken;
+      return token ? (JSON.parse(token) as unknown as IToken) : null;
    } catch (error) {
       console.error('Error saving user info:', error);
    }

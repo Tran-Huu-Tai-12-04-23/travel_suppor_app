@@ -27,8 +27,8 @@ export default function LoginScreen() {
    const { startLoading, stopLoading } = useLoading();
    const { isLoading, data, onLogin } = useLogin();
    const [input, setInput] = useState({
-      username: '',
-      password: '',
+      username: 'huutai123',
+      password: 'huutai',
    });
 
    const handleChangeInput = (key: string, value: string) => {
@@ -71,6 +71,8 @@ export default function LoginScreen() {
             ]}
          >
             <CustomHeader title="" />
+
+            <Separator height={20} />
 
             <Container>
                <Row style={{ marginTop: 'auto', marginBottom: 'auto' }} start direction="column" rowGap={20}>

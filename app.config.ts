@@ -8,13 +8,13 @@ const envs = {
       EXPO_PUBLIC_APP_VARIANT: 'dev',
       EXPO_PUBLIC_APP_NAME: 'travelsupporappdev',
       EXPO_PUBLIC_BUNDLE_ID: 'com.travelsupport.app',
-      EXPO_PUBLIC_LINK_API: 'http://192.168.1.15:3000/api',
+      EXPO_PUBLIC_LINK_API: 'http://192.168.3.15:3000/api',
    },
    production: {
       EXPO_PUBLIC_APP_VARIANT: 'prod',
       EXPO_PUBLIC_APP_NAME: 'travelsupporapp',
       EXPO_PUBLIC_BUNDLE_ID: 'com.travelsupport.app',
-      EXPO_PUBLIC_LINK_API: 'http://192.168.1.15:3000/api',
+      EXPO_PUBLIC_LINK_API: 'http://192.168.3.15:3000/api',
    },
 };
 
@@ -59,7 +59,7 @@ export default (): ExpoConfig => ({
    runtimeVersion: '1.0.0',
    updates: {
       enabled: true,
-      checkAutomatically: 'ON_LOAD',
+      checkAutomatically: 'ON_ERROR_RECOVERY',
       fallbackToCacheTimeout: 0,
       //   url: 'https://u.expo.dev/742d4f33-7ec9-4719-a948-89ec55b4b1eb',
    },
@@ -88,6 +88,12 @@ export default (): ExpoConfig => ({
    plugins: [
       'expo-font',
       'expo-build-properties',
+      [
+         'expo-location',
+         {
+            locationAlwaysAndWhenInUsePermission: 'Allow $(PRODUCT_NAME) to use your location.',
+         },
+      ],
       [
          'expo-camera',
          {

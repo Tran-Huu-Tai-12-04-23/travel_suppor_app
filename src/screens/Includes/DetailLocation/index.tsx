@@ -32,7 +32,7 @@ function DetailLocationScreen() {
       'https://source.unsplash.com/1024x768/?tree',
    ]);
 
-   const _renderItem = ({ item }: { item: any }) => <LocationItem width={300} />;
+   // const _renderItem = ({ item }: { item: any }) => <LocationItem width={300} />;
 
    return (
       <MainLayout style={{ padding: 0 }}>
@@ -108,14 +108,14 @@ function DetailLocationScreen() {
                </MapView>
 
                <Separator height={20} />
-               <FlatList
+               {/* <FlatList
                   horizontal={true}
                   style={{ flex: 1 }}
                   ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
                   data={[{ id: 12 }, { id: 2 }, { id: 3 }]}
                   renderItem={_renderItem}
                   keyExtractor={(item) => item.id.toString()}
-               />
+               /> */}
 
                <Separator height={10} />
             </Row>

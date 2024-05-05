@@ -33,7 +33,7 @@ function DetailFood() {
       'https://media.istockphoto.com/id/1457979959/photo/snack-junk-fast-food-on-table-in-restaurant-soup-sauce-ornament-grill-hamburger-french-fries.webp?b=1&s=170667a&w=0&k=20&c=A_MdmsSdkTspk9Mum_bDVB2ko0RKoyjB7ZXQUnSOHl0=',
    ]);
 
-   const _renderItem = ({ item }: { item: any }) => <FoodItem width={250} />;
+   // const _renderItem = ({ item }: { item: any }) => <FoodItem width={250} />;
 
    return (
       <MainLayout style={{ padding: 0 }}>
@@ -102,14 +102,14 @@ function DetailFood() {
                </MapView>
 
                <Separator height={20} />
-               <FlatList
+               {/* <FlatList
                   horizontal={true}
                   style={{ flex: 1 }}
                   ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
                   data={[{ id: 12 }, { id: 2 }, { id: 3 }]}
                   renderItem={_renderItem}
                   keyExtractor={(item) => item.id.toString()}
-               />
+               /> */}
 
                <Separator height={10} />
             </Row>

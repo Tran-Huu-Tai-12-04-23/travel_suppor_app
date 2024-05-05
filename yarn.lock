@@ -2710,16 +2710,9 @@
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.17.0.tgz"
   integrity sha512-t7dhREVv6dbNj0q17X12j7yDG4bD/DHYX7o5/DbDxobP0HnGPgpRz2Ej77aL7TZT3DSw13fqUTj8J4mMnqa7WA==
 
-"@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
+"@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0", "@types/node@^20.12.7":
   version "20.12.7"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.12.7.tgz"
-  integrity sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==
-  dependencies:
-    undici-types "~5.26.4"
-
-"@types/node@^20.12.7":
-  version "20.12.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.7.tgz#04080362fa3dd6c5822061aa3124f5c152cff384"
   integrity sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==
   dependencies:
     undici-types "~5.26.4"
@@ -4230,6 +4223,11 @@ expo-linking@~6.2.0, expo-linking@~6.2.2:
     expo-constants "~15.4.3"
     invariant "^2.2.4"
 
+expo-location@~16.5.5:
+  version "16.5.5"
+  resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-16.5.5.tgz#3db84f5fecf8cbfdff1e3dbe06fdc823a56bc02c"
+  integrity sha512-dXEd1HaZgdi6yHVF8R+SMnGlKDYrD+Hkkzd/b9edjMSUBLxF2y824AFSSNUf6BVOM53tJBOFEELneXkU1uj9nA==
+
 expo-manifests@~0.13.0:
   version "0.13.2"
   resolved "https://registry.npmjs.org/expo-manifests/-/expo-manifests-0.13.2.tgz"
@@ -4262,6 +4260,11 @@ expo-modules-core@1.11.13:
   dependencies:
     invariant "^2.2.4"
 
+expo-permissions@^14.4.0:
+  version "14.4.0"
+  resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-14.4.0.tgz#d7bb2f0026b87e1294ee551969c35306193f4ad3"
+  integrity sha512-oAcnJ7dlZhpBydK73cwomA2xofizayVUz+FW5REl7dMu7MYyeN/3aqhlpZ3mYddrxvG161bqu97MQr01UixUnw==
+
 expo-random@~13.6.0:
   version "13.6.0"
   resolved "https://registry.npmjs.org/expo-random/-/expo-random-13.6.0.tgz"
@@ -4291,9 +4294,9 @@ expo-updates-interface@~0.15.1:
   resolved "https://registry.npmjs.org/expo-updates-interface/-/expo-updates-interface-0.15.3.tgz"
   integrity sha512-uLvsbaCmUsXgJqeen8rYH/jPr874ZUCXEvWpKHxrCv5/XATPlYEaDuecbNSGQ+cu78i6MdtB4BHOwZmoH2d47A==
 
-expo-updates@~0.24.12:
+expo-updates@^0.24.12:
   version "0.24.12"
-  resolved "https://registry.npmjs.org/expo-updates/-/expo-updates-0.24.12.tgz"
+  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.24.12.tgz#17a708f52f999d0a7dcbf3d4401b5a481ab12730"
   integrity sha512-35ZpAMSqHIyVGT5mEptaZJBxytu0mv4PIG28i3BQe+GG4ifQtY94aCOCrUwZe8Myzaf4dNVGEUXWTPo+JPCgcw==
   dependencies:
     "@expo/code-signing-certificates" "0.0.5"

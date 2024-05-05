@@ -7,17 +7,23 @@ import Row from '@components/Row';
 import Separator from '@components/Separator';
 import TextDefault from '@components/TextDefault';
 import TextInputCustom from '@components/TextInputCustom';
-import { blackColor, btnPrimary, whiteColor } from '@constants/Colors';
-import { useAuth } from '@context/authContext';
+import { blackColor, btnPrimary } from '@constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
+import useLoadHomeData from '@hooks/api/home/useLoadHomeData';
 import MainLayout from '@layout/MainLayout';
 import { navigate, openDrawer } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
 import { localImages } from 'assets/localImage';
-import React, { useState } from 'react';
-import { FlatList, ScrollView, RefreshControl, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, ScrollView, RefreshControl, View, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { IFood } from 'src/Models/food.model';
+import { ILocation } from 'src/Models/location.model';
 import { styleGlobal } from 'src/styles';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import { Toast } from 'react-native-alert-notification';
+import { useUserLocation } from '@context/userLocationContext';
 
 const districts = [
    {
@@ -56,19 +62,90 @@ const districts = [
       img: 'https://image.sggp.org.vn/w1000/Uploaded/2024/aopovun/2023_11_23/mot-goc-quan-7-ve-dem-6945.jpg.webp',
    },
 ];
+
 function HomeScreen() {
+   const { data, isLoading, onLoadHomeData } = useLoadHomeData();
    const [searchQuery, setSearchQuery] = useState('');
    const [refreshing, setRefreshing] = React.useState(false);
+   const { setLocation, location } = useUserLocation();
    const onRefresh = React.useCallback(() => {
       setRefreshing(true);
+      onLoadHomeData({ userLocation: location });
       setTimeout(() => {
          setRefreshing(false);
       }, 2000);
    }, []);
 
-   const _renderItem = ({ item }: { item: any }) => <LocationItem width={250} />;
-   const _renderFoodItem = ({ item }: { item: any }) => <FoodItem width={250} />;
+   useEffect(() => {
+      const getLocation = async () => {
+         try {
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+               Toast.show({
+                  title: 'Permission to access location was denied',
+               });
+               return;
+            }
 
+            const location = await Location.getCurrentPositionAsync({
+               accuracy: 4,
+               timeInterval: 4,
+               distanceInterval: 10,
+            });
+
+            if (location.coords)
+               setLocation({
+                  latitude: location.coords.latitude,
+                  longitude: location.coords.longitude,
+               });
+            console.log('=====================Current Position:', location.coords);
+
+            const watchId = Location.watchPositionAsync(
+               {
+                  accuracy: 4,
+                  timeInterval: 4,
+                  distanceInterval: 10,
+               },
+               (position) => {
+                  if (position.coords)
+                     setLocation({
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                     });
+                  console.log('========================User position changed:', {
+                     latitude: position.coords.latitude,
+                     longitude: position.coords.longitude,
+                  });
+               },
+            );
+         } catch (err) {
+            console.warn(err);
+         }
+      };
+
+      getLocation();
+   }, []);
+
+   useEffect(() => {
+      console.log(location);
+      onLoadHomeData({ userLocation: location });
+   }, [location]);
+
+   const _renderItem = ({ item, index }: { item: ILocation; index: number }) => (
+      <LocationItem key={index} width={250} data={item} />
+   );
+   const _renderFoodItem = ({ item, index }: { item: IFood; index: number }) => (
+      <FoodItem key={index} width={250} data={item} />
+   );
+
+   if (isLoading)
+      return (
+         <MainLayout>
+            <Row center>
+               <ActivityIndicator color={btnPrimary} />
+            </Row>
+         </MainLayout>
+      );
    return (
       <MainLayout>
          <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
@@ -100,7 +177,7 @@ function HomeScreen() {
                />
             </Row>
 
-            <Separator height={10} />
+            <Separator height={30} />
             <TextDefault style={[styleGlobal.textHeader, { color: blackColor }]}>Find Your Stay</TextDefault>
             <Separator height={10} />
 
@@ -127,18 +204,18 @@ function HomeScreen() {
                   title={''}
                />
             </Row>
-            <Separator height={20} />
+            <Separator height={30} />
             <ScrollView horizontal={true}>
                <Row start colGap={30}>
-                  {districts.map((dis) => (
-                     <Row direction="column" rowGap={4} center key={dis.key}>
+                  {districts.map((dis, index) => (
+                     <Row direction="column" rowGap={4} center key={index}>
                         <Avatar size={70} link={{ uri: dis.img }} />
                         <TextDefault bold>{dis.name}</TextDefault>
                      </Row>
                   ))}
                </Row>
             </ScrollView>
-            <Separator height={20} />
+            <Separator height={30} />
             <Row between full>
                <TextDefault bold style={{ fontSize: 22 }}>
                   Famous places
@@ -148,11 +225,11 @@ function HomeScreen() {
             </Row>
             <FlatList
                horizontal={true}
-               ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
+               ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
                contentContainerStyle={{ paddingBottom: 20 }}
-               data={[{ id: 12 }, { id: 2 }, { id: 3 }]}
+               data={data?.locations}
                renderItem={_renderItem}
-               keyExtractor={(item) => item.id.toString()}
+               keyExtractor={(item) => item?.id}
             />
 
             <Row between full>
@@ -164,11 +241,11 @@ function HomeScreen() {
             </Row>
             <FlatList
                horizontal={true}
-               ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
+               ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
                contentContainerStyle={{ paddingBottom: 20 }}
-               data={[{ id: 12 }, { id: 2 }, { id: 3 }]}
+               data={data?.foods}
                renderItem={_renderFoodItem}
-               keyExtractor={(item) => item.id.toString()}
+               keyExtractor={(item) => item?.id}
             />
             <Separator height={100} />
          </ScrollView>
