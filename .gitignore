@@ -110,3 +110,5 @@ web-build/
 
 /ios
 /android
+
+/node_modules
