@@ -4,4 +4,15 @@ export default {
 
    // home
    LOAD_DATA_HOME: 'home',
+
+   // location
+   FIND_DETAIL_LOCATION: 'location/find-detail-location',
+   NEAR_BY_SEARCH_LOCATION: 'location/near-by-search',
+
+   //food
+   FIND_DETAIL_FOOD: 'food/find-detail-food',
+   NEAR_BY_SEARCH_FOOD: 'food/near-by-search',
+
+   // feature predict image
+   PREDICT_IMG: 'feature/predict',
 };

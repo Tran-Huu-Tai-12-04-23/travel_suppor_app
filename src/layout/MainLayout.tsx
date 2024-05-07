@@ -15,7 +15,7 @@ function MainLayout({ children, onTouchStart, style }: PropsType) {
          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0} // Adjust this offset if needed
       >
-         <View onTouchStart={onTouchStart} style={[styleGlobal.container, { ...style, backgroundColor: mainBg }]}>
+         <View onTouchStart={onTouchStart} style={[styleGlobal.container, { backgroundColor: mainBg, ...style }]}>
             {children}
          </View>
       </KeyboardAvoidingView>

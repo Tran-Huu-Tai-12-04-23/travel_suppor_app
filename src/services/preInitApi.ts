@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { getToken } from '@context/login.utils';
 
-const initApi = (url?: string, headers = {}) => {
+const preInitApi = (url?: string, headers = {}) => {
    if (url == null) throw new Error('URL is required');
    const api = axios.create({
       baseURL: url,
       timeout: 100000,
       headers: {
-         'Content-Type': 'application/json',
+         'Content-Type': 'multipart/form-data',
          accept: '*/*',
          ...headers,
       },
@@ -44,4 +44,4 @@ const initApi = (url?: string, headers = {}) => {
    return api;
 };
 
-export default initApi;
+export default preInitApi;

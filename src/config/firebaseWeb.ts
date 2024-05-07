@@ -1,6 +1,8 @@
 import { getAuth, getReactNativePersistence, initializeAuth } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { initializeApp } from 'firebase/app';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import uuid from 'react-native-uuid';
 
 const firebaseConfig = {
    apiKey: 'AIzaSyB3Po25Xnsl8suNV95kU9V_4TDGzk6Ua8g',
@@ -20,6 +22,24 @@ const auth = initializeAuth(app, {
 });
 
 export const authFirebase = getAuth(app);
+
+export async function uploadImageAsync(uri: string): Promise<string> {
+   const blob = await new Promise<Blob>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = () => resolve(xhr.response);
+      xhr.onerror = (e) => reject(new TypeError('Network request failed'));
+      xhr.responseType = 'blob';
+      xhr.open('GET', uri, true);
+      xhr.send(null);
+   });
+
+   const fileRef = ref(getStorage(), uuid.v4().toString());
+   await uploadBytes(fileRef, blob);
+
+   // blob.close();
+
+   return await getDownloadURL(fileRef);
+}
 
 //isoClientId : 160269674777-v6tbcapbjm94b38geel3oqjv93nobkgu.apps.googleusercontent.com
 

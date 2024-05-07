@@ -6,13 +6,12 @@ import { blackColor, borderColor, btnPrimary, secondaryColor, whiteColor } from 
 import { navigate } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
 import { localImages } from 'assets/localImage';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { Image, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { styleGlobal } from 'src/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useBottomSheet } from '@context/BottomSheetContext';
-import { Button } from 'react-native-paper';
 import { ILocation } from 'src/Models/location.model';
 import ImageCustom from '@components/ImageCustom';
 
@@ -20,8 +19,8 @@ type PropsType = {
    width: any;
    data: ILocation;
 };
-function LocationItem({ width = 200, data }: PropsType) {
-   const { id, name, coordinates, distanceInfo, lstImgs, address, description, createdAt } = data;
+function LocationItem({ width = 250, data }: PropsType) {
+   const { name, distanceInfo, lstImgs, address } = data;
    const { openBottomSheet } = useBottomSheet();
 
    const _contentBottomSheet = () => {
@@ -75,9 +74,14 @@ function LocationItem({ width = 200, data }: PropsType) {
          ? lstImgs[0]
          : 'https://www.androidauthority.com/wp-content/uploads/2015/07/location_marker_gps_shutterstock.jpg';
    }, [lstImgs]);
+
    return (
       <Row direction="column" style={[{ width: width, height: 170, borderRadius: 30 }]}>
-         <TouchableOpacity>
+         <TouchableOpacity
+            onPress={() => {
+               navigate(ROUTE_KEY.DETAIL_LOCATION, { _id: data._id, distanceIF: distanceInfo });
+            }}
+         >
             <ImageCustom link={thumbnails()} style={{ borderRadius: 10, height: 120 }} />
          </TouchableOpacity>
          <Row
@@ -110,4 +114,4 @@ function LocationItem({ width = 200, data }: PropsType) {
    );
 }
 
-export default LocationItem;
+export default memo(LocationItem);

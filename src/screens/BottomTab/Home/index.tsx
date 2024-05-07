@@ -7,7 +7,7 @@ import Row from '@components/Row';
 import Separator from '@components/Separator';
 import TextDefault from '@components/TextDefault';
 import TextInputCustom from '@components/TextInputCustom';
-import { blackColor, btnPrimary } from '@constants/Colors';
+import { blackColor } from '@constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import useLoadHomeData from '@hooks/api/home/useLoadHomeData';
 import MainLayout from '@layout/MainLayout';
@@ -15,15 +15,16 @@ import { navigate, openDrawer } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
 import { localImages } from 'assets/localImage';
 import React, { useEffect, useState } from 'react';
-import { FlatList, ScrollView, RefreshControl, View, ActivityIndicator } from 'react-native';
+import { FlatList, ScrollView, RefreshControl, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { IFood } from 'src/Models/food.model';
 import { ILocation } from 'src/Models/location.model';
 import { styleGlobal } from 'src/styles';
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 import { Toast } from 'react-native-alert-notification';
 import { useUserLocation } from '@context/userLocationContext';
+import { FadeIn } from 'react-native-reanimated';
+import HorizontalSkeleton from '@components/HorizontalSkeleton';
 
 const districts = [
    {
@@ -67,16 +68,17 @@ function HomeScreen() {
    const { data, isLoading, onLoadHomeData } = useLoadHomeData();
    const [searchQuery, setSearchQuery] = useState('');
    const [refreshing, setRefreshing] = React.useState(false);
-   const { setLocation, location } = useUserLocation();
+   const { setUserLocation, userLocation } = useUserLocation();
    const onRefresh = React.useCallback(() => {
       setRefreshing(true);
-      onLoadHomeData({ userLocation: location });
+      userLocation && onLoadHomeData({ location: [userLocation?.longitude, userLocation?.latitude] });
       setTimeout(() => {
          setRefreshing(false);
       }, 2000);
    }, []);
 
    useEffect(() => {
+      let watchId: any;
       const getLocation = async () => {
          try {
             const { status } = await Location.requestForegroundPermissionsAsync();
@@ -94,13 +96,13 @@ function HomeScreen() {
             });
 
             if (location.coords)
-               setLocation({
-                  latitude: location.coords.latitude,
-                  longitude: location.coords.longitude,
-               });
-            console.log('=====================Current Position:', location.coords);
+               // setUserLocation({
+               //    latitude: location.coords.latitude,
+               //    longitude: location.coords.longitude,
+               // });
+               console.log('=====================Current Position:', location.coords);
 
-            const watchId = Location.watchPositionAsync(
+            watchId = Location.watchPositionAsync(
                {
                   accuracy: 4,
                   timeInterval: 4,
@@ -108,28 +110,29 @@ function HomeScreen() {
                },
                (position) => {
                   if (position.coords)
-                     setLocation({
+                     // setUserLocation({
+                     //    latitude: position.coords.latitude,
+                     //    longitude: position.coords.longitude,
+                     // });
+                     console.log('========================User position changed:', {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude,
                      });
-                  console.log('========================User position changed:', {
-                     latitude: position.coords.latitude,
-                     longitude: position.coords.longitude,
-                  });
                },
             );
          } catch (err) {
             console.warn(err);
          }
       };
-
       getLocation();
+      return () => {
+         Location.stopLocationUpdatesAsync(watchId);
+      };
    }, []);
 
    useEffect(() => {
-      console.log(location);
-      onLoadHomeData({ userLocation: location });
-   }, [location]);
+      userLocation && onLoadHomeData({ location: [userLocation?.longitude, userLocation?.latitude] });
+   }, [userLocation]);
 
    const _renderItem = ({ item, index }: { item: ILocation; index: number }) => (
       <LocationItem key={index} width={250} data={item} />
@@ -138,14 +141,10 @@ function HomeScreen() {
       <FoodItem key={index} width={250} data={item} />
    );
 
-   if (isLoading)
-      return (
-         <MainLayout>
-            <Row center>
-               <ActivityIndicator color={btnPrimary} />
-            </Row>
-         </MainLayout>
-      );
+   const _renderSkeleton = () => {
+      return <HorizontalSkeleton />;
+   };
+
    return (
       <MainLayout>
          <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
@@ -176,11 +175,9 @@ function HomeScreen() {
                   startIcon={<Icon link={localImages().micIcon} style={{ height: 20, width: 20 }} />}
                />
             </Row>
-
             <Separator height={30} />
             <TextDefault style={[styleGlobal.textHeader, { color: blackColor }]}>Find Your Stay</TextDefault>
             <Separator height={10} />
-
             <Row between wrap colGap={10}>
                <TextInputCustom onChangeText={(tx) => setSearchQuery(tx)} flex={8} placeholder="Where do you go?" />
                <ButtonCustom
@@ -205,7 +202,7 @@ function HomeScreen() {
                />
             </Row>
             <Separator height={30} />
-            <ScrollView horizontal={true}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                <Row start colGap={30}>
                   {districts.map((dis, index) => (
                      <Row direction="column" rowGap={4} center key={index}>
@@ -217,36 +214,50 @@ function HomeScreen() {
             </ScrollView>
             <Separator height={30} />
             <Row between full>
-               <TextDefault bold style={{ fontSize: 22 }}>
-                  Famous places
+               <TextDefault entering={FadeIn.springify()} bold style={{ fontSize: 22 }}>
+                  Famous places near you
                </TextDefault>
 
                <ButtonCustom onPress={() => {}} title={'View all'} mode="text" />
             </Row>
-            <FlatList
-               horizontal={true}
-               ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
-               contentContainerStyle={{ paddingBottom: 20 }}
-               data={data?.locations}
-               renderItem={_renderItem}
-               keyExtractor={(item) => item?.id}
-            />
+            <View style={{ minHeight: 170 }}>
+               {isLoading && _renderSkeleton()}
+               {!isLoading && (
+                  <FlatList
+                     showsHorizontalScrollIndicator={false}
+                     horizontal={true}
+                     ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
+                     contentContainerStyle={{ paddingBottom: 20 }}
+                     data={data?.locations}
+                     renderItem={_renderItem}
+                     keyExtractor={(item) => item?._id}
+                  />
+               )}
+            </View>
 
             <Row between full>
-               <TextDefault bold style={{ fontSize: 22 }}>
-                  Famous foods
+               <TextDefault entering={FadeIn.springify()} bold style={{ fontSize: 22 }}>
+                  Famous foods near you
                </TextDefault>
 
                <ButtonCustom onPress={() => {}} title={'View all'} mode="text" />
             </Row>
-            <FlatList
-               horizontal={true}
-               ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
-               contentContainerStyle={{ paddingBottom: 20 }}
-               data={data?.foods}
-               renderItem={_renderFoodItem}
-               keyExtractor={(item) => item?.id}
-            />
+            <View style={{ minHeight: 170 }}>
+               {isLoading && _renderSkeleton()}
+               {!isLoading && (
+                  <FlatList
+                     showsHorizontalScrollIndicator={false}
+                     horizontal={true}
+                     ListEmptyComponent={_renderSkeleton}
+                     ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
+                     contentContainerStyle={{ paddingBottom: 20 }}
+                     data={data?.foods}
+                     renderItem={_renderFoodItem}
+                     keyExtractor={(item) => item?._id}
+                  />
+               )}
+            </View>
+
             <Separator height={100} />
          </ScrollView>
       </MainLayout>

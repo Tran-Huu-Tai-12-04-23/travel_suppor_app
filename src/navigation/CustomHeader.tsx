@@ -11,7 +11,7 @@ import ButtonCustom from '@components/ButtonCustom';
 import { SafeAreaView } from 'react-native';
 
 type PropsType = {
-   title: string;
+   title?: string;
    isBack?: boolean;
    style?: any;
 };

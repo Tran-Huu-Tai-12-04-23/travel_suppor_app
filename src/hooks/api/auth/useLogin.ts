@@ -4,6 +4,7 @@ import { IUser } from 'src/Models/user.model';
 import endpoints from 'src/services/endpoints';
 import rootApi from 'src/services/rootApi';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
+import { useAuth } from '@context/authContext';
 
 type LoginParams = {
    username: string;
@@ -15,6 +16,7 @@ type LoginResponse = {
 };
 
 const useLogin = () => {
+   const { login } = useAuth();
    const { isLoading, isError, data, error, mutateAsync } = useMutation({
       mutationFn: (variables: LoginParams) => {
          return rootApi.post<LoginParams, LoginResponse>(endpoints.LOGIN, variables);
@@ -32,6 +34,8 @@ const useLogin = () => {
             title: 'Success',
             textBody: 'Login successfully',
          });
+
+         data?.data && login(data?.data);
       },
    });
    return {

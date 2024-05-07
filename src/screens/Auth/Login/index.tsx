@@ -23,7 +23,6 @@ import { useLoading } from '@context/loadingGlobalContext';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 
 export default function LoginScreen() {
-   const { login } = useAuth();
    const { startLoading, stopLoading } = useLoading();
    const { isLoading, data, onLogin } = useLogin();
    const [input, setInput] = useState({
@@ -56,10 +55,6 @@ export default function LoginScreen() {
       }, 1000);
    };
 
-   useEffect(() => {
-      if (!data) return;
-      login(data);
-   }, [data]);
    return (
       <ImgBackgroundLayout>
          <ScrollView

@@ -1,45 +1,70 @@
 import Row from '@components/Row';
 import SlideImage from '@components/SlideImage';
 import TextDefault from '@components/TextDefault';
-import { blackColor, btnPrimary, whiteColor } from '@constants/Colors';
+import { blackColor, btnPrimary, hightLightColor, mainBg, whiteColor } from '@constants/Colors';
 import MainLayout from '@layout/MainLayout';
 import CustomHeader from '@navigation/CustomHeader';
 import React, { useRef, useState } from 'react';
-import { FlatList, Modal, SafeAreaView, View } from 'react-native';
+import { ActivityIndicator, FlatList, Modal, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { styleGlobal } from 'src/styles';
 import ButtonCustom from '@components/ButtonCustom';
 import Separator from '@components/Separator';
-import LocationItem from '@components/LocationItem';
 import Icon from '@components/Icon';
 import { localImages } from 'assets/localImage';
 import { navigate } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
 import MapView, { Marker } from 'react-native-maps';
 import { infoArea } from '../_mock';
+import { useRoute } from '@react-navigation/native';
+import NotFoundIdentity from 'src/webroot/NotFoundIdentity';
+import { ILocation } from 'src/Models/location.model';
+import { deviceHeight } from '@helper/utils';
+import useFindDetailLocation from '@hooks/api/location/useFindDetailLocation';
+import LoadingScreen from 'src/webroot/LoadingScreen';
+import LocationItem from '@components/LocationItem';
+import HorizontalSkeleton from '@components/HorizontalSkeleton';
 
 function DetailLocationScreen() {
-   const infoMap = infoArea(10.7326452, 106.697189);
-   const mapViewRef = useRef<MapView>(null);
-
+   const [isExpand, setIsExpand] = useState(false);
    const [isViewerImg, setIsViewerImg] = useState(false);
-   const [images, setImages] = useState([
-      'https://source.unsplash.com/1024x768/?nature',
-      'https://source.unsplash.com/1024x768/?water',
-      'https://www.picmaker.com/templates/_next/image?url=https%3A%2F%2Fstatic.picmaker.com%2Fscene-prebuilts%2Fthumbnails%2FYT-0090.png&w=3840&q=75',
-      'https://source.unsplash.com/1024x768/?tree',
-   ]);
+   const { params } = useRoute();
+   const { _id, distanceIF } = params as {
+      _id: string;
+      distanceIF: {
+         distanceInKilometers: number;
+         distanceInMeters: number;
+      };
+   };
+   if (!_id) {
+      return <NotFoundIdentity title="Location ID not found!" />;
+   }
+   const { data, isLoading } = useFindDetailLocation({ locationId: _id });
+   if (isLoading) {
+      return <LoadingScreen />;
+   }
+   if (!data) {
+      return <NotFoundIdentity title="Location not found!" />;
+   }
 
-   // const _renderItem = ({ item }: { item: any }) => <LocationItem width={300} />;
+   const { coordinates, lstImgs = [], name, address, description } = data.currentLocation;
+
+   const [longitude, latitude] = coordinates?.coordinates ?? [-1, -1];
+
+   const infoMap = infoArea(latitude, longitude);
+
+   const _renderNearbyLocation = ({ item }: { item: ILocation }) => (
+      <LocationItem data={item} key={item._id} width={250} />
+   );
 
    return (
-      <MainLayout style={{ padding: 0 }}>
+      <MainLayout style={{ padding: 0, minHeight: deviceHeight, flex: 1, backgroundColor: whiteColor }}>
          <CustomHeader title={''} />
          <ScrollView style={{ flex: 1 }}>
-            <Row style={{ height: 400 }} full>
-               <SlideImage images={images} onPressImage={() => setIsViewerImg(true)} />
+            <Row style={{ height: 300 }} full>
+               <SlideImage images={lstImgs} onPressImage={() => setIsViewerImg(true)} />
             </Row>
 
             <Modal visible={isViewerImg}>
@@ -51,7 +76,7 @@ function DetailLocationScreen() {
                   color="white"
                />
                <ImageViewer
-                  imageUrls={images.map((img) => {
+                  imageUrls={lstImgs.map((img) => {
                      return { url: img };
                   })}
                />
@@ -62,8 +87,8 @@ function DetailLocationScreen() {
                   minHeight: '80%',
                   backgroundColor: whiteColor,
                   transform: [{ translateY: -100 }],
-                  borderTopLeftRadius: 50,
-                  borderTopRightRadius: 50,
+                  borderTopLeftRadius: 24,
+                  borderTopRightRadius: 24,
                   paddingHorizontal: 20,
                   paddingVertical: 14,
                }}
@@ -71,21 +96,21 @@ function DetailLocationScreen() {
                start
                direction="column"
             >
-               <TextDefault style={styleGlobal.textHeader}>Misty Rock Resort</TextDefault>
+               <TextDefault style={styleGlobal.textHeader}>{name}</TextDefault>
+               <TextDefault bold>{address}</TextDefault>
+               <TextDefault style={{ color: hightLightColor }}>
+                  {distanceIF?.distanceInKilometers} kms from you.
+               </TextDefault>
+               <TextDefault>{description?.substring(0, isExpand ? description.toString().length : 100)}</TextDefault>
+               <TouchableOpacity onPress={() => setIsExpand(!isExpand)}>
+                  <TextDefault bold style={{ color: btnPrimary, fontSize: 18, textDecorationLine: 'underline' }}>
+                     {isExpand ? 'Less' : 'More'}
+                  </TextDefault>
+               </TouchableOpacity>
                <Separator height={20} />
                <Row start colGap={20}>
                   <ButtonCustom style={{ padding: 5 }} primary onPress={() => {}} title={'Review'} />
                </Row>
-               <Separator height={20} />
-               <TextDefault>
-                  Ea non tempor et laborum proident laborum aliquip tempor aliquip excepteur aliqua culpa in eu. Dolore
-                  commodo eu velit commodo id id. Labore proident velit occaecat reprehenderit ullamco aliqua
-                  reprehenderit exercitation. nostrud mollit amet. Pariatur deserunt amet exercitation duis Read more...
-               </TextDefault>
-
-               <TouchableOpacity>
-                  <TextDefault style={{ color: btnPrimary }}>Read More</TextDefault>
-               </TouchableOpacity>
                <Separator height={20} />
 
                <MapView
@@ -96,31 +121,38 @@ function DetailLocationScreen() {
                      longitudeDelta: infoMap.LONGITUDE_DELTA,
                   }}
                   style={{ width: '100%', height: 200, borderRadius: 20 }}
-                  ref={mapViewRef}
                >
                   <Marker
                      coordinate={{ latitude: infoMap.LATITUDE, longitude: infoMap.LONGITUDE }}
-                     title="Điểm bắt đầu"
+                     title="You location"
                      description="Origin Point"
                      pinColor={blackColor}
                      icon={localImages().originIcon}
                   />
                </MapView>
 
+               <Separator height={30} />
+               <TextDefault bold>Nearby Locations</TextDefault>
                <Separator height={20} />
-               {/* <FlatList
-                  horizontal={true}
-                  style={{ flex: 1 }}
-                  ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
-                  data={[{ id: 12 }, { id: 2 }, { id: 3 }]}
-                  renderItem={_renderItem}
-                  keyExtractor={(item) => item.id.toString()}
-               /> */}
+               <View style={{ height: 200 }}>
+                  {!isLoading && data?.nearLocations && (
+                     <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        style={{ flex: 1 }}
+                        ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
+                        data={data?.nearLocations}
+                        renderItem={_renderNearbyLocation}
+                        keyExtractor={(item) => item._id}
+                     />
+                  )}
+                  {isLoading && <HorizontalSkeleton />}
+               </View>
 
                <Separator height={10} />
             </Row>
          </ScrollView>
-         <Row full center colGap={20} style={[styleGlobal.shadowForce, { padding: 10 }]}>
+         <Row full center colGap={20} style={[styleGlobal.shadowForce, { padding: 10, backgroundColor: mainBg }]}>
             <ButtonCustom
                onPress={() => {}}
                title={''}

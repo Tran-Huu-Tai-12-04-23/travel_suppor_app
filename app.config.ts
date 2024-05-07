@@ -8,13 +8,13 @@ const envs = {
       EXPO_PUBLIC_APP_VARIANT: 'dev',
       EXPO_PUBLIC_APP_NAME: 'travelsupporappdev',
       EXPO_PUBLIC_BUNDLE_ID: 'com.travelsupport.app',
-      EXPO_PUBLIC_LINK_API: 'http://192.168.3.15:3000/api',
+      EXPO_PUBLIC_LINK_API: 'http://192.168.1.17:3000/api',
    },
    production: {
       EXPO_PUBLIC_APP_VARIANT: 'prod',
       EXPO_PUBLIC_APP_NAME: 'travelsupporapp',
       EXPO_PUBLIC_BUNDLE_ID: 'com.travelsupport.app',
-      EXPO_PUBLIC_LINK_API: 'http://192.168.3.15:3000/api',
+      EXPO_PUBLIC_LINK_API: 'http://devtt.top:3000/api',
    },
 };
 

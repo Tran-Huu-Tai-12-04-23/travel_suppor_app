@@ -12,6 +12,7 @@ interface AuthContextValue {
    user: IUser | null;
    login: (userData: ILoginResponse, isLoginGoogle?: boolean) => void;
    logout: () => void;
+   setUser: any;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -35,6 +36,7 @@ export const AuthProvider = ({ children }: PropsType) => {
 
    const login = (userData: ILoginResponse, isLoginGoogle?: boolean) => {
       startLoading();
+      userData?.token && saveToken(userData?.token);
       setTimeout(async () => {
          isLoginGoogle && serIsLoginWithGoogle(isLoginGoogle);
          isLoginGoogle && console.log('====================== login with google');
@@ -42,7 +44,6 @@ export const AuthProvider = ({ children }: PropsType) => {
             setUser(userData?.user);
             await saveUserInfo(userData?.user);
          }
-         userData?.token && (await saveToken(userData?.token));
          stopLoading();
       }, 1000);
    };
@@ -73,5 +74,5 @@ export const AuthProvider = ({ children }: PropsType) => {
    }, []);
 
    if (isLoading) return <ActivityIndicator color={btnPrimary} />;
-   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
+   return <AuthContext.Provider value={{ setUser, user, login, logout }}>{children}</AuthContext.Provider>;
 };

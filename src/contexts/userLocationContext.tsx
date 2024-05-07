@@ -9,11 +9,11 @@ import { authFirebase } from 'src/config/firebaseWeb';
 import { ILoginResponse } from 'src/Models/loginResponse.dto';
 
 interface UserLocationContextValue {
-   location: {
+   userLocation: {
       latitude: number;
       longitude: number;
    } | null;
-   setLocation: any;
+   setUserLocation: any;
 }
 
 const AuthContext = createContext<UserLocationContextValue | undefined>(undefined);
@@ -30,7 +30,10 @@ interface PropsType {
    children: React.ReactNode;
 }
 export const UserLocationProvider = ({ children }: PropsType) => {
-   const [location, setLocation] = useState(null);
+   const [userLocation, setUserLocation] = useState({
+      latitude: 10.743321644716596,
+      longitude: 106.68507499797778,
+   });
 
-   return <AuthContext.Provider value={{ location, setLocation }}>{children}</AuthContext.Provider>;
+   return <AuthContext.Provider value={{ userLocation, setUserLocation }}>{children}</AuthContext.Provider>;
 };

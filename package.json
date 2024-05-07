@@ -1,4 +1,18 @@
 {
+   "scripts": {
+      "ts": "ts-node",
+      "start": "NODE_ENV=development expo start --dev-client",
+      "start:production": "NODE_ENV=production expo start --dev-client",
+      "ota:dev": "NODE_ENV=development eas update --branch dev",
+      "ota:production": "NODE_ENV=production eas update --branch production",
+      "prebuild:dev:ios": "NODE_ENV=development npx expo prebuild --platform ios",
+      "prebuild:dev:android": "NODE_ENV=development expo prebuild --platform android",
+      "local:build:prod:android": "NODE_ENV=production eas build --platform android --local",
+      "local:build:dev:android": "NODE_ENV=development eas build --platform android --local",
+      "android": "expo run:android",
+      "ios": "expo run:ios",
+      "web": "expo start --web"
+   },
    "dependencies": {
       "@expo/vector-icons": "^14.0.0",
       "@fortawesome/free-solid-svg-icons": "^6.5.2",
@@ -15,6 +29,7 @@
       "@react-navigation/stack": "^6.3.4",
       "@tanstack/react-query": "^4.33.0",
       "axios": "^1.6.8",
+      "buffer": "^5.0.6",
       "deprecated-react-native-prop-types": "^5.0.0",
       "dotenv": "^16.4.5",
       "expo": "^50.0.0",
@@ -40,10 +55,12 @@
       "lodash": "^4.17.21",
       "patch-package": "^8.0.0",
       "react": "18.2.0",
+      "react-content-loader": "^7.0.0",
       "react-dom": "18.2.0",
       "react-native": "0.73.6",
       "react-native-alert-notification": "^0.4.0",
       "react-native-gesture-handler": "~2.14.0",
+      "react-native-gif": "^1.0.3",
       "react-native-image-zoom-viewer": "^3.0.1",
       "react-native-maps": "1.10.0",
       "react-native-maps-directions": "^1.9.0",
@@ -53,6 +70,9 @@
       "react-native-reanimated": "~3.6.2",
       "react-native-safe-area-context": "4.8.2",
       "react-native-screens": "~3.29.0",
+      "react-native-skeleton-content": "^1.0.28",
+      "react-native-svg": "^15.2.0",
+      "react-native-uuid": "^2.0.2",
       "react-native-web": "~0.19.6"
    },
    "devDependencies": {
@@ -61,20 +81,6 @@
       "@types/node": "^20.12.7",
       "@types/react": "~18.2.45",
       "typescript": "^5.3.0"
-   },
-   "scripts": {
-      "ts": "ts-node",
-      "start": "NODE_ENV=development expo start --dev-client",
-      "start:production": "NODE_ENV=production expo start --dev-client",
-      "ota:dev": "NODE_ENV=development eas update --branch dev",
-      "ota:production": "NODE_ENV=production eas update --branch production",
-      "prebuild:dev:ios": "NODE_ENV=development npx expo prebuild --platform ios",
-      "prebuild:dev:android": "NODE_ENV=development expo prebuild --platform android",
-      "local:build:prod:android": "NODE_ENV=production eas build --platform android --local",
-      "local:build:dev:android": "NODE_ENV=development eas build --platform android --local",
-      "android": "expo run:android",
-      "ios": "expo run:ios",
-      "web": "expo start --web"
    },
    "version": "1.0.0",
    "private": true,

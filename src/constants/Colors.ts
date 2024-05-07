@@ -10,8 +10,12 @@ const mainBg = '#F5F5F5';
 const labelColor = '#575E69';
 const dangerColor = '#FF3F5B';
 const inputColor = '#ECEEEB';
+const hightLightColor = '#4FAE5A';
+const priceColor = '#eb984e';
 
 export {
+   priceColor,
+   hightLightColor,
    inputColor,
    primaryColor,
    btnPrimary,

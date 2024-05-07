@@ -3,23 +3,22 @@ import Icon from '@components/Icon';
 import ImageCustom from '@components/ImageCustom';
 import Row from '@components/Row';
 import TextDefault from '@components/TextDefault';
-import { blackColor, borderColor, btnPrimary, secondaryColor, whiteColor } from '@constants/Colors';
+import { blackColor, borderColor, btnPrimary, priceColor, secondaryColor, whiteColor } from '@constants/Colors';
 import { MaterialIcons } from '@expo/vector-icons';
+import { vndToUsd } from '@helper/helpers';
 import { navigate } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
 import { localImages } from 'assets/localImage';
-import React, { useCallback } from 'react';
-import { Image } from 'react-native';
+import React, { memo, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { IFood } from 'src/Models/food.model';
-import { styleGlobal } from 'src/styles';
 
 type PropsType = {
    width: any;
    data: IFood;
 };
-function FoodItem({ width = 150, data }: PropsType) {
-   const { id, name, coordinates, distanceInfo, lstImgs, address, description, rangePrice, createdAt } = data;
+function FoodItem({ width = 250, data }: PropsType) {
+   const { _id, name, distanceInfo, lstImgs, address, rangePrice } = data;
 
    const thumbnails = useCallback(() => {
       return lstImgs && lstImgs?.length > 0
@@ -29,7 +28,7 @@ function FoodItem({ width = 150, data }: PropsType) {
 
    return (
       <Row direction="column" style={[{ width: width, height: 170, borderRadius: 30 }]}>
-         <TouchableOpacity>
+         <TouchableOpacity onPress={() => navigate(ROUTE_KEY.DETAIL_FOOD, { _id: _id, distanceIF: distanceInfo })}>
             <ImageCustom link={thumbnails()} style={{ borderRadius: 10, height: 120 }} />
          </TouchableOpacity>
          <Row
@@ -54,6 +53,15 @@ function FoodItem({ width = 150, data }: PropsType) {
                   <TextDefault numberOfLines={1} ellipsizeMode="tail">
                      {address}
                   </TextDefault>
+                  <Row start colGap={4}>
+                     <TextDefault style={{ color: priceColor, fontSize: 16 }} bold>
+                        {vndToUsd(rangePrice[0] ?? 0) + '$'}{' '}
+                     </TextDefault>
+                     <TextDefault style={{ color: priceColor }}>-</TextDefault>
+                     <TextDefault style={{ color: priceColor, fontSize: 16 }} bold>
+                        {vndToUsd(rangePrice[1] ?? 0) + '$'}{' '}
+                     </TextDefault>
+                  </Row>
                   <TextDefault>{distanceInfo && distanceInfo.distanceInKilometers}km</TextDefault>
                </Row>
             </Row>
@@ -62,4 +70,4 @@ function FoodItem({ width = 150, data }: PropsType) {
    );
 }
 
-export default FoodItem;
+export default memo(FoodItem);
