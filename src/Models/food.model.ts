@@ -12,5 +12,14 @@ export interface IFood {
    description: string | undefined;
    rangePrice: number[];
    createdAt: Date;
-   distanceInfo?: { distanceInKilometers: number; distanceInMeters: number };
+   distanceInfo?: {
+      distanceKiloMetres: {
+         value: number;
+         text: string;
+      };
+      estimateTime: {
+         value: number;
+         text: string;
+      };
+   } | null;
 }

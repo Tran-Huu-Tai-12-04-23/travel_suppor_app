@@ -15,4 +15,6 @@ export default {
 
    // feature predict image
    PREDICT_IMG: 'feature/predict',
+   SUGGEST_LOCATION_SCHEDULE: 'feature/suggest-location-schedule',
+   SUGGEST_FOOD_SCHEDULE: 'feature/suggest-food-schedule',
 };

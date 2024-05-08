@@ -41,5 +41,6 @@ export function localImages() {
       trashIcon: require('./images/trashIcon.png'),
       foodIcon: require('./images/foodIcon.png'),
       locationIcon: require('./images/locationIcon.png'),
+      suggestIcon: require('./images/suggest.png'),
    };
 }

@@ -1,9 +1,9 @@
-import { StyleSheet, View,  TouchableOpacity,  } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Modal from 'react-native-modal';
 import TextDefault from './TextDefault';
 import Row from './Row';
-import { btnPrimary,  whiteColor } from '@constants/Colors';
+import { btnPrimary, whiteColor } from '@constants/Colors';
 
 type CustomModalProps = {
    children?: React.ReactNode;
@@ -28,7 +28,12 @@ const CustomModal = ({
    nameBtnConfirm = 'Xác nhận',
 }: CustomModalProps) => {
    return (
-      <Modal isVisible={isModalVisible} onBackdropPress={() => toggleModal?.()}>
+      <Modal
+         animationIn="bounceIn"
+         animationOut={'bounceOut'}
+         isVisible={isModalVisible}
+         onBackdropPress={() => toggleModal?.()}
+      >
          <Row direction="column" style={[styles.container]}>
             {title && (
                <View

@@ -82,8 +82,8 @@ function ButtonCustom(props: ButtonProps) {
             setStyleCus({
                ...styleGlobal.border,
                borderColor: btnPrimary,
-               backgroundColor: btnPrimary,
-               color: blackColor,
+               backgroundColor: 'transparent',
+               color: btnPrimary,
             });
             return;
          }

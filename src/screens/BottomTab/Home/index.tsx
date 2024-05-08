@@ -68,7 +68,7 @@ function HomeScreen() {
    const { data, isLoading, onLoadHomeData } = useLoadHomeData();
    const [searchQuery, setSearchQuery] = useState('');
    const [refreshing, setRefreshing] = React.useState(false);
-   const { setUserLocation, userLocation } = useUserLocation();
+   const { userLocation } = useUserLocation();
    const onRefresh = React.useCallback(() => {
       setRefreshing(true);
       userLocation && onLoadHomeData({ location: [userLocation?.longitude, userLocation?.latitude] });

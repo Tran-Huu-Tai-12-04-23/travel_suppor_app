@@ -13,10 +13,6 @@ type response = {
    data: {
       location: ILocation | null;
       food: IFood | null;
-      distance: {
-         distanceInKilometers: number | null;
-         distanceInMeters: number | null;
-      };
       meta: [number, number] | null; // user location
    };
 };

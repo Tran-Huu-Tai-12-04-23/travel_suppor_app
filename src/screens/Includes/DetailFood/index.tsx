@@ -119,24 +119,25 @@ function DetailFoodScreen() {
                   <ButtonCustom style={{ padding: 5 }} primary onPress={() => {}} title={'Review'} />
                </Row>
                <Separator height={20} />
-
-               <MapView
-                  initialRegion={{
-                     latitude: infoMap.LATITUDE,
-                     longitude: infoMap.LONGITUDE,
-                     latitudeDelta: infoMap.LATITUDE_DELTA,
-                     longitudeDelta: infoMap.LONGITUDE_DELTA,
-                  }}
-                  style={{ width: '100%', height: 200, borderRadius: 20 }}
-               >
-                  <Marker
-                     coordinate={{ latitude: infoMap.LATITUDE, longitude: infoMap.LONGITUDE }}
-                     title="You location"
-                     description="Origin Point"
-                     pinColor={blackColor}
-                     icon={localImages().originIcon}
-                  />
-               </MapView>
+               <View style={{ width: '100%', height: 200, borderRadius: 20, overflow: 'hidden' }}>
+                  <MapView
+                     initialRegion={{
+                        latitude: infoMap.LATITUDE,
+                        longitude: infoMap.LONGITUDE,
+                        latitudeDelta: infoMap.LATITUDE_DELTA,
+                        longitudeDelta: infoMap.LONGITUDE_DELTA,
+                     }}
+                     style={{ width: '100%', height: 200, borderRadius: 20 }}
+                  >
+                     <Marker
+                        coordinate={{ latitude: infoMap.LATITUDE, longitude: infoMap.LONGITUDE }}
+                        title="You location"
+                        description="Origin Point"
+                        pinColor={blackColor}
+                        icon={localImages().originIcon}
+                     />
+                  </MapView>
+               </View>
 
                <Separator height={30} />
                <TextDefault bold>Nearby Locations</TextDefault>

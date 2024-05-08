@@ -1,7 +1,17 @@
-import { blackColor, borderColor, btnPrimary, labelColor, mainBg, primaryColor, whiteColor } from '@constants/Colors';
+import { borderColor, btnPrimary, labelColor } from '@constants/Colors';
 import { StyleSheet } from 'react-native';
 
 export const styleGlobal = StyleSheet.create({
+   point: {
+      padding: 8,
+      borderRadius: 100,
+      elevation: 10,
+      backgroundColor: btnPrimary,
+      shadowColor: '#00ff20',
+      shadowOffset: { width: 20, height: 2 },
+      shadowOpacity: 0.9,
+      shadowRadius: 110,
+   },
    fab: {
       position: 'absolute',
       margin: 16,

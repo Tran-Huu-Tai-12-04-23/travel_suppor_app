@@ -3,7 +3,7 @@ import Icon from '@components/Icon';
 import ImageCustom from '@components/ImageCustom';
 import Row from '@components/Row';
 import TextDefault from '@components/TextDefault';
-import { blackColor, borderColor, btnPrimary, priceColor, secondaryColor, whiteColor } from '@constants/Colors';
+import { blackColor, borderColor, btnPrimary, hightLightColor, priceColor, secondaryColor, whiteColor } from '@constants/Colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { vndToUsd } from '@helper/helpers';
 import { navigate } from '@navigation/NavigationService';
@@ -53,16 +53,23 @@ function FoodItem({ width = 250, data }: PropsType) {
                   <TextDefault numberOfLines={1} ellipsizeMode="tail">
                      {address}
                   </TextDefault>
-                  <Row start colGap={4}>
-                     <TextDefault style={{ color: priceColor, fontSize: 16 }} bold>
-                        {vndToUsd(rangePrice[0] ?? 0) + '$'}{' '}
-                     </TextDefault>
-                     <TextDefault style={{ color: priceColor }}>-</TextDefault>
-                     <TextDefault style={{ color: priceColor, fontSize: 16 }} bold>
-                        {vndToUsd(rangePrice[1] ?? 0) + '$'}{' '}
+                  {rangePrice && (
+                     <Row start colGap={4}>
+                        <TextDefault style={{ color: priceColor, fontSize: 16 }} bold>
+                           {vndToUsd(rangePrice[0]) + '$'}
+                        </TextDefault>
+                        <TextDefault style={{ color: priceColor }}>-</TextDefault>
+                        <TextDefault style={{ color: priceColor, fontSize: 16 }} bold>
+                           {vndToUsd(rangePrice[1]) + '$'}
+                        </TextDefault>
+                     </Row>
+                  )}
+                  <Row colGap={20}>
+                     <TextDefault bold>{distanceInfo && distanceInfo.distanceKiloMetres?.text}</TextDefault>
+                     <TextDefault style={{ color: hightLightColor }} bold>
+                        {distanceInfo && distanceInfo.estimateTime?.text}
                      </TextDefault>
                   </Row>
-                  <TextDefault>{distanceInfo && distanceInfo.distanceInKilometers}km</TextDefault>
                </Row>
             </Row>
          </Row>

@@ -53,7 +53,7 @@ export default (): ExpoConfig => ({
    owner: 'huutaidev',
    extra: {
       eas: {
-         projectId: 'd8244eaa-9515-4e96-a93c-0530eedef759',
+         projectId: 'decbf95f-1b3e-4761-a307-53705fefbbe6',
       },
    },
    runtimeVersion: '1.0.0',

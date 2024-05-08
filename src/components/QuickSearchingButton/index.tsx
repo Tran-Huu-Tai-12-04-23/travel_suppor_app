@@ -1,6 +1,6 @@
 import { btnPrimary } from '@constants/Colors';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Alert, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import React, { useEffect } from 'react';
 import { useBottomSheet } from '@context/BottomSheetContext';
 import Row from '../Row';
@@ -11,15 +11,14 @@ import { deviceWidth } from '@helper/utils';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useUserLocation } from '@context/userLocationContext';
-import { Buffer } from 'buffer';
-import axios from 'axios';
 import usePredictImage from '@hooks/api/feature/usePredictImage';
 import { ALERT_TYPE, AlertNotificationToast } from 'react-native-alert-notification';
 import { uploadImageAsync } from 'src/config/firebaseWeb';
-import { err } from 'react-native-svg';
 import { useModal } from '@context/ModalContext';
-import LoadingScreen from 'src/webroot/LoadingScreen';
-import TextDefault from '@components/TextDefault';
+import GifImage from '@components/Gif';
+import { GIF_LINK } from 'assets/Gif';
+import FoodItem from '@components/FoodItem';
+import LocationView from '@components/LocationView';
 
 const _renderBottomChooseImg = (onPressTakePicture: () => void, onPressCamera: () => void) => {
    return (
@@ -46,7 +45,7 @@ function QuickSearchingButton() {
    const { openModal, hideModal } = useModal();
    const { data, isLoading, onPredict } = usePredictImage();
    const { userLocation } = useUserLocation();
-   const { openBottomSheet } = useBottomSheet();
+   const { openBottomSheet, hideBottomSheet } = useBottomSheet();
 
    const onPressTakePicture = async () => {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -65,6 +64,23 @@ function QuickSearchingButton() {
       const asset = result.assets[0];
       if (!asset) return;
       try {
+         hideBottomSheet();
+         openModal({
+            content: (
+               <Row style={{ padding: 20 }} center>
+                  <GifImage source={GIF_LINK.FIND_LOCATION} />
+               </Row>
+            ),
+            title: 'Application predicting this image that you provided! waiting ...',
+            nameAcceptButton: 'Ok',
+            nameCancelButton: 'Cancel',
+            onReject: () => {
+               hideModal();
+            },
+            onAccept: async () => {
+               hideModal();
+            },
+         });
          const image_url = await uploadImageAsync(asset.uri);
          if (userLocation) onPredict({ image_url, location: [userLocation?.longitude, userLocation?.latitude] });
          else onPredict({ image_url });
@@ -96,6 +112,23 @@ function QuickSearchingButton() {
       }
 
       try {
+         hideBottomSheet();
+         openModal({
+            content: (
+               <Row style={{ padding: 20 }} center>
+                  <GifImage source={GIF_LINK.FIND_LOCATION} />
+               </Row>
+            ),
+            title: 'Application predicting this image that you provided! waiting ...',
+            nameAcceptButton: 'Ok',
+            nameCancelButton: 'Cancel',
+            onReject: () => {
+               hideModal();
+            },
+            onAccept: async () => {
+               hideModal();
+            },
+         });
          const image_url = await uploadImageAsync(asset.uri);
          if (userLocation) onPredict({ image_url, location: [userLocation?.longitude, userLocation?.latitude] });
          else onPredict({ image_url });
@@ -113,22 +146,17 @@ function QuickSearchingButton() {
    };
 
    useEffect(() => {
-      if (isLoading)
+      if (!isLoading && data)
          openModal({
-            content: <LoadingScreen />,
-            title: 'Application predicting this image that you provided! waiting ...',
-            nameAcceptButton: 'Ok',
-            nameCancelButton: 'Cancel',
-            onReject: () => {
-               hideModal();
-            },
-            onAccept: async () => {
-               hideModal();
-            },
-         });
-      else {
-         openModal({
-            content: <TextDefault>{JSON.stringify(data)}</TextDefault>,
+            content: (
+               <Animated.View entering={FadeInDown.damping(200).springify()}>
+                  {data?.food ? (
+                     <FoodItem width={'100%'} data={data?.food} />
+                  ) : data?.location ? (
+                     <LocationView data={data?.location} />
+                  ) : null}
+               </Animated.View>
+            ),
             title: 'Predicting done!',
             nameAcceptButton: 'Ok',
             nameCancelButton: 'Cancel',
@@ -139,7 +167,6 @@ function QuickSearchingButton() {
                hideModal();
             },
          });
-      }
    }, [isLoading]);
 
    return (

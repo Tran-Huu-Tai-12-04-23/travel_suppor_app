@@ -13,12 +13,10 @@ const Helper = {
 };
 
 export default Helper;
-function dayjs(text: Date) {
-   throw new Error('Function not implemented.');
-}
 
 export function vndToUsd(amountInVnd: number) {
-   const exchangeRate = 0.000043; // 1 VND to USD
-   const amountInUsd = amountInVnd * exchangeRate;
+   const exchangeRate = 0.000043;
+   const [integer, decimal] = exchangeRate.toFixed(2).split('.');
+   const amountInUsd = amountInVnd * Number(integer) + (amountInVnd * Number(decimal)) / 100;
    return amountInUsd;
 }

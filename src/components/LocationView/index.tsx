@@ -14,12 +14,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useBottomSheet } from '@context/BottomSheetContext';
 import { ILocation } from 'src/Models/location.model';
 import ImageCustom from '@components/ImageCustom';
+import { deviceWidth } from '@helper/utils';
 
 type PropsType = {
-   width: any;
    data: ILocation;
 };
-function LocationItem({ width = 250, data }: PropsType) {
+function LocationView({ data }: PropsType) {
    const { name, distanceInfo, lstImgs, address } = data;
    const { openBottomSheet } = useBottomSheet();
 
@@ -76,23 +76,15 @@ function LocationItem({ width = 250, data }: PropsType) {
    }, [lstImgs]);
 
    return (
-      <Row direction="column" style={[{ width: width, height: 170, borderRadius: 30 }]}>
+      <Row direction="column" style={[{ width: '100%', borderRadius: 30 }]}>
          <TouchableOpacity
             onPress={() => {
                navigate(ROUTE_KEY.DETAIL_LOCATION, { _id: data._id, distanceIF: distanceInfo });
             }}
          >
-            <ImageCustom link={thumbnails()} style={{ borderRadius: 10, height: 120 }} />
+            <ImageCustom link={thumbnails()} style={{ borderRadius: 10, width: 350, height: 120 }} />
          </TouchableOpacity>
-         <Row
-            style={{
-               backgroundColor: borderColor,
-               padding: 10,
-               transform: [{ translateY: -25 }],
-               borderBottomEndRadius: 10,
-               borderBottomStartRadius: 10,
-            }}
-         >
+         <Row>
             <Row start full direction="column" style={{ overflow: 'hidden' }}>
                <TextDefault
                   bold
@@ -107,9 +99,9 @@ function LocationItem({ width = 250, data }: PropsType) {
                      {address}
                   </TextDefault>
                   <Row colGap={20}>
-                     <TextDefault bold>{distanceInfo && distanceInfo.distanceKiloMetres?.text}</TextDefault>
+                     <TextDefault bold>{distanceInfo && distanceInfo.distanceKiloMetres.text}</TextDefault>
                      <TextDefault style={{ color: hightLightColor }} bold>
-                        {distanceInfo && distanceInfo.estimateTime?.text}
+                        {distanceInfo && distanceInfo.estimateTime.text}
                      </TextDefault>
                   </Row>
                </Row>
@@ -119,4 +111,4 @@ function LocationItem({ width = 250, data }: PropsType) {
    );
 }
 
-export default memo(LocationItem);
+export default memo(LocationView);

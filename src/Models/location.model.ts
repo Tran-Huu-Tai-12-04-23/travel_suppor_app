@@ -11,5 +11,14 @@ export interface ILocation {
    address: string | undefined;
    description: string | undefined;
    createdAt: Date;
-   distanceInfo?: { distanceInKilometers: number; distanceInMeters: number };
+   distanceInfo?: {
+      distanceKiloMetres: {
+         value: number;
+         text: string;
+      };
+      estimateTime: {
+         value: number;
+         text: string;
+      };
+   } | null;
 }
