@@ -20,7 +20,6 @@ const queryClient = new QueryClient();
 
 export default function App() {
    const isLoadingComplete = useLoadedAssets();
-
    if (!isLoadingComplete) {
       return null;
    } else {

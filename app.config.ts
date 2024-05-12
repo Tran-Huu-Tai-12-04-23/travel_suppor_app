@@ -91,20 +91,20 @@ export default (): ExpoConfig => ({
       [
          'expo-location',
          {
-            locationAlwaysAndWhenInUsePermission: 'Allow $(PRODUCT_NAME) to use your location.',
+            locationAlwaysAndWhenInUsePermission: 'Allow Travel app to use your location.',
          },
       ],
       [
          'expo-camera',
          {
-            cameraPermission: 'Allow FnB Emp to access the camera to take pictures about proof of',
+            cameraPermission: 'Allow Travel app to access the camera to take pictures about proof of',
          },
       ],
       [
          'expo-media-library',
          {
-            photosPermission: 'Allow FnB Emp to access the library to upload pictures about proof of.',
-            savePhotosPermission: 'Allow FnB Emp to access the library to upload pictures about proof of',
+            photosPermission: 'Allow Travel app to access the library to upload pictures about proof of.',
+            savePhotosPermission: 'Allow Travel app to access the library to upload pictures about proof of',
             isAccessMediaLocationEnabled: true,
          },
       ],

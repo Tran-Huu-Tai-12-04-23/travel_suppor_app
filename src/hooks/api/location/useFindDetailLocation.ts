@@ -23,7 +23,7 @@ const useFindDetailLocation = (variables: variables) => {
             type: ALERT_TYPE.DANGER,
          });
       },
-      onSuccess: (data) => console.log(data),
+      onSuccess: (data) => {},
    });
 
    return {

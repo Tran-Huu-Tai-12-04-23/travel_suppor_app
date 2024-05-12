@@ -48,7 +48,6 @@ function SearchLocation() {
    const [typeSearch, setTypeSearch] = useState<FILTER>(FILTER.ALL);
    const debouncedOnChangeText = debounce((text: string) => {
       setIsLoading(false);
-      console.log(text);
    }, 1000);
 
    const handleTextChange = (text: string) => {
@@ -62,7 +61,7 @@ function SearchLocation() {
 
    const _renderLocationItem = ({ item, index }: { item: any; index: number }) => (
       <Row full key={index} style={{ paddingBottom: index !== 4 ? 0 : 50 }}>
-         <LocationItem key={index} width={deviceWidth - 20} />
+         <LocationItem key={index} width={deviceWidth - 20} data={item} />
       </Row>
    );
    return (
