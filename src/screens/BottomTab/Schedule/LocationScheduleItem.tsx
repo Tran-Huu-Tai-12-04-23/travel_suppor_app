@@ -5,6 +5,8 @@ import Separator from '@components/Separator';
 import TextDefault from '@components/TextDefault';
 import { hightLightColor } from '@constants/Colors';
 import { deviceWidth } from '@helper/utils';
+import { navigate } from '@navigation/NavigationService';
+import { ROUTE_KEY } from '@navigation/route';
 import React, { useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { ILocation } from 'src/Models/location.model';
@@ -60,7 +62,9 @@ function LocationScheduleItem({
             </Row>
 
             <Separator height={10} />
-            <ButtonCustom mode="outlined" style={{ paddingHorizontal: 30 }} onPress={() => {}} title={'Director'} />
+            <ButtonCustom mode="outlined" style={{ paddingHorizontal: 30 }}
+            onPress={() => navigate(ROUTE_KEY.DIRECTION, {desLocation: to.coordinates.coordinates})}
+             title={'Director'} />
             <Separator height={10} />
          </Row>
       </Row>

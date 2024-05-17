@@ -1,7 +1,0 @@
-{
-   "java.configuration.updateBuildConfiguration": "automatic",
-   "java.compile.nullAnalysis.mode": "disabled",
-   "avdmanager.sdkManager": "/home/dev/Android/Sdk/cmdline-tools/latest/bin/sdkmanager",
-   "avdmanager.executable": "/home/dev/Android/Sdk/cmdline-tools/latest/bin/avdmanager",
-   "avdmanager.sdkPath": "/home/dev/Android/Sdk/cmdline-tools/latest/bin"
-}

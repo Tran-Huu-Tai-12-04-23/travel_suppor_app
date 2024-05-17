@@ -179,7 +179,7 @@ function DetailFoodScreen() {
             />
             <ButtonCustom
                primary
-               onPress={() => navigate(ROUTE_KEY.DIRECTION)}
+               onPress={() => navigate(ROUTE_KEY.DIRECTION, {desLocation: [longitude, latitude]})}
                title={'Director'}
                full
                style={{ width: 200, padding: 10 }}

@@ -73,7 +73,7 @@ export default function RegisterScreen() {
             ]}
          >
             <CustomHeader title="" />
-
+            <Separator height={20} />
             <Container>
                <Row style={{ marginTop: 'auto', marginBottom: 'auto' }} start direction="column" rowGap={20}>
                   <Title style={{ fontSize: 40 }}>Register</Title>

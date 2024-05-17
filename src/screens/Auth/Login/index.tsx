@@ -13,7 +13,6 @@ import ButtonCustom from '@components/ButtonCustom';
 import TextDefault from '@components/TextDefault';
 import { btnPrimary, primaryColor } from '@constants/Colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useAuth } from '@context/authContext';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { navigate } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
@@ -21,7 +20,7 @@ import BtnLoginWithGoogle from './BtnLoginWithGoogle';
 import useLogin from '@hooks/api/auth/useLogin';
 import { useLoading } from '@context/loadingGlobalContext';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
-
+import Config from 'react-native-config'
 export default function LoginScreen() {
    const { startLoading, stopLoading } = useLoading();
    const { isLoading, data, onLogin } = useLogin();
@@ -68,7 +67,6 @@ export default function LoginScreen() {
             <CustomHeader title="" />
 
             <Separator height={20} />
-
             <Container>
                <Row style={{ marginTop: 'auto', marginBottom: 'auto' }} start direction="column" rowGap={20}>
                   <Title style={{ fontSize: 40 }}>Login</Title>

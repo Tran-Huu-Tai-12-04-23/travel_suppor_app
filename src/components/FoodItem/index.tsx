@@ -1,14 +1,10 @@
-import ButtonCustom from '@components/ButtonCustom';
-import Icon from '@components/Icon';
 import ImageCustom from '@components/ImageCustom';
 import Row from '@components/Row';
 import TextDefault from '@components/TextDefault';
-import { blackColor, borderColor, btnPrimary, hightLightColor, priceColor, secondaryColor, whiteColor } from '@constants/Colors';
-import { MaterialIcons } from '@expo/vector-icons';
+import {  borderColor,hightLightColor, priceColor } from '@constants/Colors';
 import { vndToUsd } from '@helper/helpers';
 import { navigate } from '@navigation/NavigationService';
 import { ROUTE_KEY } from '@navigation/route';
-import { localImages } from 'assets/localImage';
 import React, { memo, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { IFood } from 'src/Models/food.model';

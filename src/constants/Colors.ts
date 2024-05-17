@@ -1,5 +1,3 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
 const primaryColor = '#4FAE5A';
 const btnPrimary = '#4FAE5A';
 const secondaryColor = '#B8DBC6';
