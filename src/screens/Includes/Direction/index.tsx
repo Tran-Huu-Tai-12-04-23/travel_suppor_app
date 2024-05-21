@@ -36,8 +36,8 @@ const ASPECT_RATIO =
   Dimensions.get("window").width / Dimensions.get("window").height;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-// const GOOGLE_MAPS_APIKEY = 'AIzaSyACFEyucHfjhPUl88GCY1spvYuHi8lNEUA';
-const GOOGLE_MAPS_APIKEY = "AIzaSyCwODDdAAlVuYb27NKf_vp0Vow4wRANZ6o";
+const GOOGLE_MAPS_APIKEY = "AIzaSyACFEyucHfjhPUl88GCY1spvYuHi8lNEUA";
+// const GOOGLE_MAPS_APIKEY = "AIzaSyCwODDdAAlVuYb27NKf_vp0Vow4wRANZ6o";
 
 enum MODE_MAP {
   DRIVING = "DRIVING",

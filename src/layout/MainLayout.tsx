@@ -11,13 +11,16 @@ type PropsType = {
 function MainLayout({ children, onTouchStart, style }: PropsType) {
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: mainBg, marginTop: 30 }}
+      style={{ flex: 1, backgroundColor: whiteColor, marginTop: 30 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0} // Adjust this offset if needed
     >
       <View
         onTouchStart={onTouchStart}
-        style={[styleGlobal.container, { backgroundColor: mainBg, ...style }]}
+        style={[
+          styleGlobal.container,
+          { backgroundColor: whiteColor, ...style },
+        ]}
       >
         {children}
       </View>

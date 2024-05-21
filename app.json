@@ -23,6 +23,11 @@
       "bundleIdentifier": "y"
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyACFEyucHfjhPUl88GCY1spvYuHi8lNEUA"
+        }
+      },
       "package": "com.travel.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",

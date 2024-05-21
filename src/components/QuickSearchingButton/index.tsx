@@ -14,6 +14,7 @@ import { useUserLocation } from "@context/userLocationContext";
 import usePredictImage from "@hooks/api/feature/usePredictImage";
 import {
   ALERT_TYPE,
+  AlertNotificationDialog,
   AlertNotificationToast,
 } from "react-native-alert-notification";
 import { uploadImageAsync } from "src/config/firebaseWeb";
@@ -108,7 +109,7 @@ function QuickSearchingButton() {
     // Request camera permissions
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== ImagePicker.PermissionStatus.GRANTED) {
-      AlertNotificationToast.show({
+      AlertNotificationDialog.show({
         title: "Camera permission denied. ",
         type: ALERT_TYPE.DANGER,
       });
@@ -161,7 +162,7 @@ function QuickSearchingButton() {
   const handleOpen = () => {
     openBottomSheet({
       content: _renderBottomChooseImg(onPressTakePicture, onPressCamera),
-      title: "Search for img location!",
+      title: "Search for img!",
       snapPoints: [180],
     });
   };

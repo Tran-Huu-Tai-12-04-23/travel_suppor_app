@@ -2,12 +2,14 @@ import { ILocation } from "src/Models/location.model";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   ALERT_TYPE,
+  AlertNotificationDialog,
   AlertNotificationToast,
   Toast,
 } from "react-native-alert-notification";
 import { IFood } from "src/Models/food.model";
 import endpoints from "src/services/endpoints";
 import rootApi, { predictApi } from "src/services/rootApi";
+import { useModal } from "@context/ModalContext";
 
 export type variables = {
   image_url: string;
@@ -21,6 +23,7 @@ type response = {
   };
 };
 const usePredictImage = () => {
+  const { hideModal } = useModal();
   const {
     isLoading,
     isError,
@@ -36,7 +39,8 @@ const usePredictImage = () => {
       );
     },
     onError: (e: any) => {
-      AlertNotificationToast.show({
+      hideModal();
+      AlertNotificationDialog.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",
         textBody:

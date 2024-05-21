@@ -17,6 +17,7 @@ type PropsType = {
   value?: string;
   onChangeText?: (text: string) => void;
   flex?: number;
+  disabled?: boolean;
   placeholder?: string;
 };
 function TextInputCustom({
@@ -25,6 +26,7 @@ function TextInputCustom({
   value,
   onChangeText,
   flex,
+  disabled,
 }: PropsType) {
   const [isFocus, setIsFocus] = useState(false);
   return (
@@ -36,6 +38,7 @@ function TextInputCustom({
         </>
       )}
       <TextInput
+        disabled={disabled}
         textColor={blackColor}
         placeholder={placeholder}
         onFocus={() => setIsFocus(true)}

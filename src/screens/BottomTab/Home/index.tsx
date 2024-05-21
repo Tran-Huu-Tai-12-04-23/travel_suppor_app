@@ -7,7 +7,7 @@ import Row from "@components/Row";
 import Separator from "@components/Separator";
 import TextDefault from "@components/TextDefault";
 import TextInputCustom from "@components/TextInputCustom";
-import { blackColor } from "@constants/Colors";
+import { blackColor, inputColor, labelColor } from "@constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import useLoadHomeData from "@hooks/api/home/useLoadHomeData";
 import MainLayout from "@layout/MainLayout";
@@ -201,36 +201,43 @@ function HomeScreen() {
         <TextDefault style={[styleGlobal.textHeader, { color: blackColor }]}>
           Find Your Stay
         </TextDefault>
-        <Separator height={10} />
-        <Row between wrap colGap={10}>
-          <TextInputCustom
-            onChangeText={(tx) => setSearchQuery(tx)}
-            flex={8}
-            placeholder="Where do you go?"
-          />
-          <ButtonCustom
-            minWidth={50}
-            radius={10}
-            primary
-            style={{ padding: 16 }}
-            startIcon={
-              <Ionicons
-                name="search-sharp"
-                size={22}
-                color="white"
-                style={{ marginTop: "auto", marginBottom: "auto" }}
-              />
-            }
-            onPress={() => {
-              if (!searchQuery) return;
-              setSearchQuery("");
-              navigate(ROUTE_KEY.SEARCH);
-            }}
-            title={""}
-          />
-        </Row>
         <Separator height={30} />
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <TouchableOpacity onPress={() => navigate(ROUTE_KEY.SEARCH)}>
+          <Row
+            between
+            wrap
+            colGap={10}
+            style={{
+              backgroundColor: inputColor,
+              borderRadius: 10,
+              paddingLeft: 10,
+            }}
+          >
+            <TextDefault style={{ color: labelColor }}>
+              Where do you go?
+            </TextDefault>
+            <ButtonCustom
+              minWidth={50}
+              radius={10}
+              primary
+              style={{ padding: 16 }}
+              startIcon={
+                <Ionicons
+                  name="search-sharp"
+                  size={22}
+                  color="white"
+                  style={{ marginTop: "auto", marginBottom: "auto" }}
+                />
+              }
+              onPress={() => {
+                if (!searchQuery) return;
+                setSearchQuery("");
+              }}
+              title={""}
+            />
+          </Row>
+        </TouchableOpacity>
+        {/* <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <Row start colGap={30}>
             {districts.map((dis, index) => (
               <Row direction="column" rowGap={4} center key={index}>
@@ -239,7 +246,7 @@ function HomeScreen() {
               </Row>
             ))}
           </Row>
-        </ScrollView>
+        </ScrollView> */}
         <Separator height={30} />
         <Row between full>
           <TextDefault
@@ -249,8 +256,6 @@ function HomeScreen() {
           >
             Famous places near you
           </TextDefault>
-
-          <ButtonCustom onPress={() => {}} title={"View all"} mode="text" />
         </Row>
         <View style={{ minHeight: 170 }}>
           {isLoading && _renderSkeleton()}
@@ -266,7 +271,7 @@ function HomeScreen() {
             />
           )}
         </View>
-
+        <Separator height={30} />
         <Row between full>
           <TextDefault
             entering={FadeIn.springify()}
@@ -275,8 +280,6 @@ function HomeScreen() {
           >
             Famous foods near you
           </TextDefault>
-
-          <ButtonCustom onPress={() => {}} title={"View all"} mode="text" />
         </Row>
         <View style={{ minHeight: 170 }}>
           {isLoading && _renderSkeleton()}
