@@ -13,9 +13,10 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
+      "enable": true,
       "fallbackToCacheTimeout": 0,
       "checkAutomatically": "ON_ERROR_RECOVERY",
-      "url": "https://u.expo.dev/3ea2c1b8-0406-48d5-b886-dd83c58bb9b2"
+      "url": "https://u.expo.dev/7ca8040c-4f7a-4f44-9f3f-3034df13569e"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -25,7 +26,7 @@
     "android": {
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyACFEyucHfjhPUl88GCY1spvYuHi8lNEUA"
+          "apiKey": "AIzaSyCwODDdAAlVuYb27NKf_vp0Vow4wRANZ6o"
         }
       },
       "package": "com.travel.app",
@@ -34,16 +35,25 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "plugins": ["expo-font"],
+    "plugins": [
+      "expo-font",
+      [
+        "@react-native-voice/voice",
+        {
+          "microphonePermission": "Allow travel app to access your microphone",
+          "speechRecogntionPermission": "Allow travel app to securely recognize user speech"
+        }
+      ]
+    ],
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "3ea2c1b8-0406-48d5-b886-dd83c58bb9b2"
+        "projectId": "7ca8040c-4f7a-4f44-9f3f-3034df13569e"
       }
     },
-    "owner": "huutaidev",
+    "owner": "huutaidev2",
     "runtimeVersion": {
       "policy": "appVersion"
     }

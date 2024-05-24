@@ -1,12 +1,10 @@
 import Avatar from "@components/Avatar";
 import ButtonCustom from "@components/ButtonCustom";
 import FoodItem from "@components/FoodItem";
-import Icon from "@components/Icon";
 import LocationItem from "@components/LocationItem";
 import Row from "@components/Row";
 import Separator from "@components/Separator";
 import TextDefault from "@components/TextDefault";
-import TextInputCustom from "@components/TextInputCustom";
 import { blackColor, inputColor, labelColor } from "@constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import useLoadHomeData from "@hooks/api/home/useLoadHomeData";
@@ -15,7 +13,13 @@ import { navigate, openDrawer } from "@navigation/NavigationService";
 import { ROUTE_KEY } from "@navigation/route";
 import { localImages } from "assets/localImage";
 import React, { useEffect, useState } from "react";
-import { FlatList, ScrollView, RefreshControl, View } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  RefreshControl,
+  View,
+  Image,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { IFood } from "src/Models/food.model";
 import { ILocation } from "src/Models/location.model";
@@ -25,6 +29,7 @@ import { Toast } from "react-native-alert-notification";
 import { useUserLocation } from "@context/userLocationContext";
 import { FadeIn } from "react-native-reanimated";
 import HorizontalSkeleton from "@components/HorizontalSkeleton";
+import { useAuth } from "@context/authContext";
 
 const districts = [
   {
@@ -65,6 +70,7 @@ const districts = [
 ];
 
 function HomeScreen() {
+  const { logout } = useAuth();
   const { setUserLocation } = useUserLocation();
   const { data, isLoading, onLoadHomeData } = useLoadHomeData();
   const [searchQuery, setSearchQuery] = useState("");
@@ -182,20 +188,15 @@ function HomeScreen() {
             </TextDefault>
           </Row>
 
-          <ButtonCustom
-            onPress={() => {}}
-            title={""}
-            primary={false}
-            mode="contained"
-            minWidth={50}
-            style={{ padding: 20 }}
-            startIcon={
-              <Icon
-                link={localImages().micIcon}
-                style={{ height: 20, width: 20 }}
+          <TouchableOpacity onPress={logout}>
+            <Row style={styleGlobal.shadow}>
+              <Image
+                source={localImages().exitIcon}
+                style={{ width: 35, height: 35 }}
+                resizeMode="contain"
               />
-            }
-          />
+            </Row>
+          </TouchableOpacity>
         </Row>
         <Separator height={30} />
         <TextDefault style={[styleGlobal.textHeader, { color: blackColor }]}>

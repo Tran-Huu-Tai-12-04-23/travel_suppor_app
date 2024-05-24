@@ -7,6 +7,7 @@ import {
   borderColor,
   btnPrimary,
   hightLightColor,
+  primaryColor,
   secondaryColor,
   whiteColor,
 } from "@constants/Colors";
@@ -99,19 +100,10 @@ function LocationView({ data }: PropsType) {
 
   return (
     <Row direction="column" style={[{ width: "100%", borderRadius: 30 }]}>
-      <TouchableOpacity
-        onPress={() => {
-          navigate(ROUTE_KEY.DETAIL_LOCATION, {
-            _id: data._id,
-            distanceIF: distanceInfo,
-          });
-        }}
-      >
-        <ImageCustom
-          link={thumbnails()}
-          style={{ borderRadius: 10, width: 350, height: 120 }}
-        />
-      </TouchableOpacity>
+      <ImageCustom
+        link={thumbnails()}
+        style={{ borderRadius: 10, width: "100%", height: 120 }}
+      />
       <Row>
         <Row start full direction="column" style={{ overflow: "hidden" }}>
           <TextDefault

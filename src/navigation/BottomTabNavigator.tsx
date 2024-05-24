@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TouchableOpacity, Image, View } from "react-native";
 import HomeDrawer from "src/Drawer/HomeDrawer";
 import ScheduleScreen from "src/screens/BottomTab/Schedule";
-import TextToSpeakScreen from "src/screens/BottomTab/TextToSpeak";
+import TextToSpeakScreen from "src/screens/BottomTab/SpeechToText";
 import PersonalScreen from "src/screens/BottomTab/Personal";
 import { ROUTE_KEY } from "./route";
 import { localImages } from "assets/localImage";

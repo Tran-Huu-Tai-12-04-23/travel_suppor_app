@@ -21,8 +21,10 @@ import { uploadImageAsync } from "src/config/firebaseWeb";
 import { useModal } from "@context/ModalContext";
 import GifImage from "@components/Gif";
 import { GIF_LINK } from "assets/Gif";
-import FoodItem from "@components/FoodItem";
 import LocationView from "@components/LocationView";
+import { navigate } from "@navigation/NavigationService";
+import { ROUTE_KEY } from "@navigation/route";
+import FoodView from "@components/FoodView";
 
 const _renderBottomChooseImg = (
   onPressTakePicture: () => void,
@@ -173,9 +175,29 @@ function QuickSearchingButton() {
         content: (
           <Animated.View entering={FadeInDown.damping(200).springify()}>
             {data?.food ? (
-              <FoodItem width={"100%"} data={data?.food} />
+              <TouchableOpacity
+                onPress={() => {
+                  navigate(ROUTE_KEY.DETAIL_FOOD, {
+                    _id: data?.food?._id,
+                    distanceIF: data?.food?.distanceInfo,
+                  });
+                  hideModal();
+                }}
+              >
+                <FoodView data={data?.food} />
+              </TouchableOpacity>
             ) : data?.location ? (
-              <LocationView data={data?.location} />
+              <TouchableOpacity
+                onPress={() => {
+                  navigate(ROUTE_KEY.DETAIL_LOCATION, {
+                    _id: data?.location?._id,
+                    distanceIF: data?.location?.distanceInfo,
+                  });
+                  hideModal();
+                }}
+              >
+                <LocationView data={data?.location} />
+              </TouchableOpacity>
             ) : null}
           </Animated.View>
         ),
